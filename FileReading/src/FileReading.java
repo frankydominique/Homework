@@ -10,11 +10,12 @@ import javax.swing.*;
 
 public class FileReading {
 
-	private static String pathname = System.getProperty("user.dir")+"/";
+	//private static String pathname = System.getProperty("user.dir")+"/";
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
 		System.out.println("What is the name of your file?");
@@ -34,6 +35,8 @@ public class FileReading {
 			unableToOpenFile(pathname);
 			System.exit(1);
 		}
+		
+		outputPrint(pathname, bracesBalanced(userFile));
 		
 		outputBlank(pathname);
 		
@@ -59,22 +62,29 @@ public class FileReading {
 		
 	}
 	
-	public static boolean bracesBalanced(String x)
+	public static boolean bracesBalanced(File x)
 		throws IOException
 	{
-		File file = new File(x);
 		
-		BufferedReader input = new BufferedReader(new FileReader(file));
+		BufferedReader input = new BufferedReader(new FileReader(x));
 		
 		int pos = 0, beginBrace = 0, endBrace = 0;
+		
+		//problem is here
+		System.out.println(input.read());
 		
 		while((pos = input.read()) != -1)
 		{
 			if((char)pos == '{')
+			{
 				beginBrace++;
+			}
 			else if ((char)pos == '}')
+			{
 				endBrace++;
+			}
 		}
+		
 		
 		return beginBrace == endBrace;
 	}
@@ -94,6 +104,28 @@ public class FileReading {
 		
 		PrintWriter output = new PrintWriter(append2);
 		output.println("\n\n");
+		output.close();
+	}
+	
+	public static void outputPrint(String pathname, boolean x)
+	{
+		Writer append2 = null;
+		
+		try
+		{
+			append2 = new FileWriter(pathname, true);
+		}
+		catch (IOException ex)
+		{
+			System.out.println("File doesn't exist");
+		}
+		
+		PrintWriter output = new PrintWriter(append2);
+		if(x == true)
+			output.println("Braces balanced.");
+		else
+			output.println("Braces not balanced");
+		
 		output.close();
 	}
 	
