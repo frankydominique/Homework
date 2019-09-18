@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.*;
 import javax.swing.*;
 
-public class FileReader {
+public class FileReading {
 
 	private static String pathname = System.getProperty("user.dir")+"/";
 	/**
@@ -36,6 +36,7 @@ public class FileReader {
 		}
 		
 		outputBlank(pathname);
+		
 		
 	}
 	
