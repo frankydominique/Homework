@@ -63,10 +63,20 @@ public class FileReading {
 		throws IOException
 	{
 		File file = new File(x);
+		
 		BufferedReader input = new BufferedReader(new FileReader(file));
 		
+		int pos = 0, beginBrace = 0, endBrace = 0;
 		
-		return true;
+		while((pos = input.read()) != -1)
+		{
+			if((char)pos == '{')
+				beginBrace++;
+			else if ((char)pos == '}')
+				endBrace++;
+		}
+		
+		return beginBrace == endBrace;
 	}
 	
 	public static void outputBlank(String pathname)
