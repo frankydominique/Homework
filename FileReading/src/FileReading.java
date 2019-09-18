@@ -59,10 +59,11 @@ public class FileReading {
 		
 	}
 	
-	//this one is the problem
-	public static boolean bracesBalanced(File x)
+	public static boolean bracesBalanced(String x)
+		throws IOException
 	{
-		BufferedReader input = new BufferedReader(new FileReader(x));
+		File file = new File(x);
+		BufferedReader input = new BufferedReader(new FileReader(file));
 		
 		
 		return true;
