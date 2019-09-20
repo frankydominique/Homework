@@ -10,7 +10,6 @@ import javax.swing.*;
 
 public class FileReading {
 
-	//private static String pathname = System.getProperty("user.dir")+"/";
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -24,7 +23,7 @@ public class FileReading {
 		
 		String pathname = "output.txt";
 		
-		PrintWriter inputText = null;
+		/*PrintWriter inputText = null;
 		
 		try
 		{
@@ -35,6 +34,7 @@ public class FileReading {
 			unableToOpenFile(pathname);
 			System.exit(1);
 		}
+		*/
 		
 		outputPrint(pathname, bracesBalanced(userFile));
 		
@@ -62,6 +62,8 @@ public class FileReading {
 		
 	}
 	
+	//this method counts the number of opening braces and closing braces in a file to check if the numbers
+	//	equal and are balanced
 	public static boolean bracesBalanced(File x)
 		throws IOException
 	{
@@ -71,7 +73,7 @@ public class FileReading {
 		int pos = 0, beginBrace = 0, endBrace = 0;
 		
 		//problem is here
-		System.out.println(input.read());
+		//System.out.println(input.read()); //file doesn't read existing file, but keeps making a new one
 		
 		while((pos = input.read()) != -1)
 		{
