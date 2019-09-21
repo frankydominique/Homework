@@ -1,9 +1,8 @@
-
-Braces not balanced
-
-
-
 Braces balanced.
 
 
+Files Identical
+Braces balanced.
 
+
+Files Not Identical
