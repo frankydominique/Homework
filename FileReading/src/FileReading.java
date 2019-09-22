@@ -9,6 +9,8 @@ import java.io.*;
 import javax.swing.*;
 
 public class FileReading {
+	
+	private static ArrayList<String> subWords = new ArrayList(10);
 
 	/**
 	 * @param args
@@ -28,6 +30,16 @@ public class FileReading {
 		outputBlank(pathname);
 		
 		outputPrintIdentical(pathname, fileIdentical(fileName, "test.txt"));
+		
+		outputBlank(pathname);
+		
+		StringBuffer story = loadFile("ShortStory.txt");
+		
+		collectPrompts(story);
+		
+		enterPrompts(story);
+		
+		outputPrintPrompt(pathname, story);
 		
 	}
 	
@@ -150,7 +162,7 @@ public class FileReading {
 		}
 		catch (IOException ex)
 		{
-			System.out.println("File doesn't exist");
+			System.out.println("Part 2: Unable to Open File");
 		}
 		
 		PrintWriter output = new PrintWriter(append2);
@@ -172,32 +184,18 @@ public class FileReading {
 	public static boolean fileIdentical (String x, String y) 
 			throws IOException
 	{
-		
-		/*StringBuffer fileX = new StringBuffer()
-		BufferedReader inputX = new BufferedReader(new FileReader(x));
-		BufferedReader inputY = new BufferedReader(new FileReader(y));
-		
-		int ch = 0, ab = 0;
-		boolean check = true;
-		
-		System.out.println("printing");
-		
-		while((ch = inputX.read()) != -1 && (ab = inputY.read()) != -1)
-		{
-			System.out.println("printing");
-			if((char)ch != (char)ab)
-				check = false;
-		}
-		
-		inputX.close();
-		inputY.close();
-		*/
+
 		String fileX = loadFile(x).toString();
 		String fileY = loadFile(y).toString();
 		
 		return fileX.equals(fileY);
 	}
 	
+	/*
+	 * Creates a StringBuffer of the given file
+	 * 
+	 * @param	pathname name of the file wanted to turn into a StringBuffer
+	 */
 	public static StringBuffer loadFile(String pathname)
 		throws IOException
 	{
@@ -210,8 +208,65 @@ public class FileReading {
 			strBuffer.append((char)ch);
 		
 		input.close();
+		
 		return strBuffer;
 	}
 	
+	
+	public static void collectPrompts(StringBuffer x)
+	{
+		int pos = 1;
+		
+		Scanner input = new Scanner(System.in);
+		String choice = "";
+		
+		while(pos <= x.length())
+		{
+			if(x.charAt(pos - 1) == '<')
+			{
+				System.out.println("Please enter a " + x.substring(pos, x.indexOf(">", pos))); //must be index of char from current index or else it will be going backwards
+				choice = input.nextLine();
+				subWords.add(choice);
+			}
+			pos++;
+		}
+	}
+	
+	public static void enterPrompts(StringBuffer x)
+		throws IOException
+	{
+		int pos = 0;
+		int subWordsElem = 1;
+		
+		while(pos < x.length())
+		{
+			if(x.charAt(pos) == '<')
+			{
+				x.replace(pos, x.indexOf(">", pos) + 1, subWords.get(subWordsElem - 1));
+				subWordsElem++;
+			}
+			pos++;
+		}
+		
+	}
+	
+	public static void outputPrintPrompt(String pathname, StringBuffer x)
+	{
+		Writer append2 = null;
+		
+		try
+		{
+			append2 = new FileWriter(pathname, true);
+		}
+		catch (IOException ex)
+		{
+			System.out.println("Part 3: Unable to Open File");
+		}
+		
+		PrintWriter output = new PrintWriter(append2);
+		output.println(x);
+		
+		output.close();
+	}
 }
 
