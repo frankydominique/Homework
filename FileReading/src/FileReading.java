@@ -11,6 +11,8 @@ import javax.swing.*;
 public class FileReading {
 	
 	private static ArrayList<String> subWords = new ArrayList(10);
+	private static File output = new File("output.txt");
+	private static int partNum = 1;
 
 	/**
 	 * @param args
@@ -19,27 +21,25 @@ public class FileReading {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
-		System.out.println("What is the name of your first file?");
-		String fileName = input.nextLine();
-		File userFile = new File(fileName);
+		//System.out.println("What is the name of your first file?");
+		//String fileName = input.nextLine();
+		File userFile = new File(args[0]);
 		
-		String pathname = "output.txt";
+		outputPrintBraces(bracesBalanced(userFile));
 		
-		outputPrintBraces(pathname, bracesBalanced(userFile));
+		outputBlank();
 		
-		outputBlank(pathname);
+		outputPrintIdentical(fileIdentical(args[0], args[1]));
 		
-		outputPrintIdentical(pathname, fileIdentical(fileName, "test.txt"));
+		outputBlank();
 		
-		outputBlank(pathname);
-		
-		StringBuffer story = loadFile("ShortStory.txt");
+		StringBuffer story = loadFile(args[2]);
 		
 		collectPrompts(story);
 		
 		enterPrompts(story);
 		
-		outputPrintPrompt(pathname, story);
+		outputPrintPrompt(story);
 		
 	}
 	
@@ -48,13 +48,13 @@ public class FileReading {
 	 * 
 	 * @param pathname of file that cannot be reached
 	 */
-	public static void unableToOpenFile(String pathname)
+	public static void unableToOpenFile()
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(pathname, true);
+			append2 = new FileWriter(output, true);
 		}
 		catch (IOException ex)
 		{
@@ -62,7 +62,9 @@ public class FileReading {
 		}
 		
 		PrintWriter output = new PrintWriter(append2);
-		output.println("Part 1: Unable to open file");
+		output.println("Part " + partNum + ": Unable to Open File");
+		
+		partNum++;
 		output.close();
 		
 	}
@@ -71,26 +73,34 @@ public class FileReading {
 	//	equal and are balanced
 	//@param name of input file
 	public static boolean bracesBalanced(File x)
-		throws IOException
 	{
-		
-		BufferedReader input = new BufferedReader(new FileReader(x));
-		
 		int pos = 0, beginBrace = 0, endBrace = 0;
+		BufferedReader input;
 		
-		while((pos = input.read()) != -1)
+		try
 		{
-			if((char)pos == '{')
+			input = new BufferedReader(new FileReader(x));
+			
+			while((pos = input.read()) != -1)
 			{
-				beginBrace++;
+				if((char)pos == '{')
+				{
+					beginBrace++;
+				}
+				else if ((char)pos == '}')
+				{
+					endBrace++;
+				}
 			}
-			else if ((char)pos == '}')
-			{
-				endBrace++;
-			}
-		}		
+			
+			return beginBrace == endBrace;
+		}
+		catch (IOException ex)
+		{
+			unableToOpenFile();
+		}	
 		
-		return beginBrace == endBrace;
+		return false;
 	}
 	
 	/*
@@ -98,80 +108,78 @@ public class FileReading {
 	 * 
 	 * @param pathname filename where blank line is to be posted
 	 */
-	public static void outputBlank(String pathname)
+	public static void outputBlank()
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(pathname, true);
+			append2 = new FileWriter(output, true);
 		}
 		catch (IOException ex)
 		{
 			System.out.println("File doesn't exist");
 		}
 		
-		PrintWriter output = new PrintWriter(append2);
-		output.println("\n");
-		output.close();
+		PrintWriter toPrint = new PrintWriter(append2);
+		toPrint.println("\n");
+		toPrint.close();
 	}
 
 	
 	/*
 	 * Checks if braces in the given file are balanced
 	 * 
-	 * @param	pathname name of file being printed to
 	 * @param	x outcome of bracesBalanced to be printed
 	 */
-	public static void outputPrintBraces(String pathname, boolean x)
+	public static void outputPrintBraces(boolean x)
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(pathname, true);
+			append2 = new FileWriter(output, true);
 		}
 		catch (IOException ex)
 		{
 			System.out.println("File doesn't exist");
 		}
 		
-		PrintWriter output = new PrintWriter(append2);
+		PrintWriter toPrint = new PrintWriter(append2);
 		if(x == true)
-			output.println("Braces balanced.");
+			toPrint.println("Braces balanced.");
 		else
-			output.println("Braces not balanced");
+			toPrint.println("Braces not balanced");
 		
-		output.close();
+		toPrint.close();
 	}
 	
 	
 	/*
 	 * Prints outcome of fileIdentical
 	 * 
-	 * @param	pathname name of file being printed to
 	 * @param	x outcome of fileIdentical to be printed
 	 */
-	public static void outputPrintIdentical(String pathname, boolean x)
+	public static void outputPrintIdentical(boolean x)
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(pathname, true);
+			append2 = new FileWriter(output, true);
 		}
 		catch (IOException ex)
 		{
-			System.out.println("Part 2: Unable to Open File");
+			System.out.println("Neither File Exists");
 		}
 		
-		PrintWriter output = new PrintWriter(append2);
+		PrintWriter toPrint = new PrintWriter(append2);
 		if(x == true)
-			output.println("Files Identical");
+			toPrint.println("Files Identical");
 		else
-			output.println("Files Not Identical");
+			toPrint.println("Files Not Identical");
 		
-		output.close();
+		toPrint.close();
 	}
 	
 	
@@ -182,7 +190,7 @@ public class FileReading {
 	 * @param	y pathname of file2 being compared
 	 */
 	public static boolean fileIdentical (String x, String y) 
-			throws IOException
+		throws IOException
 	{
 
 		String fileX = loadFile(x).toString();
@@ -197,22 +205,35 @@ public class FileReading {
 	 * @param	pathname name of the file wanted to turn into a StringBuffer
 	 */
 	public static StringBuffer loadFile(String pathname)
-		throws IOException
 	{
 		File file = new File(pathname);
 		StringBuffer strBuffer = new StringBuffer((int)file.length());
-		BufferedReader input = new BufferedReader(new FileReader(file));
 		
-		int ch = 0;
-		while((ch = input.read()) != -1)
-			strBuffer.append((char)ch);
-		
-		input.close();
+		try
+		{
+			BufferedReader input = new BufferedReader(new FileReader(file));
+			
+			int ch = 0;
+			while((ch = input.read()) != -1)
+				strBuffer.append((char)ch);
+			
+			input.close();
+			
+			return strBuffer;
+		}
+		catch (IOException ex)
+		{
+			unableToOpenFile();
+		}	
 		
 		return strBuffer;
 	}
 	
-	
+	/*
+	 * Gets a file, finds tags in file, and asks for the user to enter words matching the tags
+	 * 
+	 * @param	x StringBuffer of the file wanted to be chosen from loadFile
+	 */
 	public static void collectPrompts(StringBuffer x)
 	{
 		int pos = 1;
@@ -232,6 +253,12 @@ public class FileReading {
 		}
 	}
 	
+	/*
+	 * Replaces the StringBuffer of the chosen file from loadFile with the words given
+	 * 	in collectPrompts from ArrayList subWords
+	 * 
+	 * @param the name of the file needing updating
+	 */
 	public static void enterPrompts(StringBuffer x)
 		throws IOException
 	{
@@ -250,23 +277,28 @@ public class FileReading {
 		
 	}
 	
-	public static void outputPrintPrompt(String pathname, StringBuffer x)
+	/*
+	 * prints the newly updated StringBuffer story file to output file
+	 * 
+	 * @param	x StringBuffer of the file that will be copied
+	 */
+	public static void outputPrintPrompt(StringBuffer x)
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(pathname, true);
+			append2 = new FileWriter(output, true);
 		}
 		catch (IOException ex)
 		{
-			System.out.println("Part 3: Unable to Open File");
+			System.out.println("Both files are not working");
 		}
 		
-		PrintWriter output = new PrintWriter(append2);
-		output.println(x);
+		PrintWriter toPrint = new PrintWriter(append2);
+		toPrint.println(x);
 		
-		output.close();
+		toPrint.close();
 	}
 }
 
