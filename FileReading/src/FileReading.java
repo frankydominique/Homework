@@ -19,10 +19,7 @@ public class FileReading {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		Scanner input = new Scanner(System.in);
-		//System.out.println("What is the name of your first file?");
-		//String fileName = input.nextLine();
+
 		File userFile = new File(args[0]);
 		
 		outputPrintBraces(bracesBalanced(userFile));
