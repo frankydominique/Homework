@@ -102,9 +102,15 @@ public class Cards {
 		return convertSuitToInt(suit);
 	}
 	
+	//incomplete
 	public int compareTo(String s)
 	{
 		
+	}
+	
+	public boolean equals(Object x)
+	{
+		return this.suit == x.getSuitInt() && this.rank == x.getRank();
 	}
 	
 	/**
