@@ -6,7 +6,8 @@
  * @author Franceska
  *
  */
-public class Cards {
+
+public class Cards implements Comparable<Cards>{
 
 	private int suit;
 	private int rank;
@@ -20,7 +21,7 @@ public class Cards {
 	public Cards(String s, String r)
 	{
 		suit = convertSuitToInt(s);
-		rank = convertRankToInt(r);
+		rank = convertRanksToInt(r);
 	}
 	
 	public Cards(String s, int r)
@@ -32,7 +33,7 @@ public class Cards {
 	public Cards(int s, String r)
 	{
 		suit = s;
-		rank = convertRankToInt(r);
+		rank = convertRanksToInt(r);
 	}
 	
 	//converts String ranks given in constructor to int ranks
@@ -44,6 +45,8 @@ public class Cards {
 			return 12;
 		else if(s.equalsIgnoreCase("king"))
 			return 13;
+		else
+			return -1;
 	}
 
 	//converts int Rank to String
@@ -55,6 +58,8 @@ public class Cards {
 			return "queen";
 		else if(s == 13)
 			return "king";
+		else
+			return(s+ "");
 	}
 	
 	//converts string suit given in constructor to int suit
@@ -68,6 +73,8 @@ public class Cards {
 			return 3;
 		else if(s.equalsIgnoreCase("Diamonds") || s.equalsIgnoreCase("diamond"))
 			return 4;
+		else
+			return -1;
 	}
 	
 	public static String convertSuitToString(int s)
@@ -80,6 +87,8 @@ public class Cards {
 			return "clubs";
 		else if(s == 4)
 			return "diamonds";
+		else
+			return "" + 2;
 	}
 	
 	public String getSuit()
@@ -99,18 +108,22 @@ public class Cards {
 	
 	public int getSuitInt()
 	{
-		return convertSuitToInt(suit);
+		return suit;
 	}
 	
 	//incomplete
-	public int compareTo(String s)
+	public int compareTo(Cards x)
 	{
-		
+		String card1 = getRankStr() + getSuit();
+		String card2 = x.getRankStr() + getSuit();
+		return card1.compareTo(card2);
 	}
 	
 	public boolean equals(Object x)
 	{
-		return this.suit == x.getSuitInt() && this.rank == x.getRank();
+		if(x != null)
+			return this.suit == ((Cards)x).getSuitInt() && this.rank == ((Cards)x).getRank();
+		return false;
 	}
 	
 	/**
