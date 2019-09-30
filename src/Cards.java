@@ -114,8 +114,8 @@ public class Cards implements Comparable<Cards>{
 	//incomplete
 	public int compareTo(Cards x)
 	{
-		String card1 = getRankStr() + getSuit();
-		String card2 = x.getRankStr() + getSuit();
+		String card1 = this.toString();
+		String card2 = x.toString();
 		return card1.compareTo(card2);
 	}
 	
@@ -124,6 +124,11 @@ public class Cards implements Comparable<Cards>{
 		if(x != null)
 			return this.suit == ((Cards)x).getSuitInt() && this.rank == ((Cards)x).getRank();
 		return false;
+	}
+	
+	public static String toString(Cards x)
+	{
+		return x.getRankStr() + x.getSuit();
 	}
 	
 	/**
