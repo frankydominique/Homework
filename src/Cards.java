@@ -131,6 +131,11 @@ public class Cards implements Comparable<Cards>{
 		return x.getRankStr() + x.getSuit();
 	}
 	
+	public String toString()
+	{
+		return this.getRankStr() + x.getSuit();
+	}
+	
 	/**
 	 * @param args
 	 */
