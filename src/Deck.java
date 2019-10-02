@@ -10,7 +10,7 @@ import javax.smartcardio.Card;
  */
 public class Deck {
 	
-	private static Cards[] deck = new Cards[52];
+	private Cards[] deck = new Cards[52];
 	private static int topCard = 1;
 
 	/**
@@ -48,6 +48,28 @@ public class Deck {
 		}
 	}
 	
+	public boolean equals (Deck[] x)
+	{
+		boolean wholeDeck = true;
+		for(int i = 0; i < deck.length; i++)
+		{
+			if(deck[i] != x[i])
+				wholeDeck = false;
+		}
+		return wholeDeck;
+	}
+	
+	public Deck[] deal(int hands, int cardPerHand)
+	{
+		Card[] removed = new Card[hands * cardPerHand]
+	}
+	
+	public Card pick()
+	{
+		Card picked = deck.get((int)(Math.random() + 1));
+	}
+	
+	//incomplete, must add formatting
 	public String toString()
 	{
 		String list = "";
@@ -58,7 +80,7 @@ public class Deck {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
