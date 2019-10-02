@@ -66,7 +66,15 @@ public class Deck {
 	
 	public Card pick()
 	{
-		Card picked = deck.get((int)(Math.random() + 1));
+		int randInt = new (int)(Math.random()*52)
+		Card picked = deck[randInt];
+		while(randInt < deck.length)
+		{
+			deck[randInt] = deck[randInt - 1];
+			randInt++;
+		}
+		deck[randInt] = null;
+		return picked;
 	}
 	
 	//incomplete, must add formatting
