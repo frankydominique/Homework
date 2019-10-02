@@ -1,3 +1,7 @@
+Franceska Padilla Coo
+DECSII
+File Reading PseudoCode
+
 -unable to open file: adds "part " + number + ": Unable to Open File"
 	-void method
 
