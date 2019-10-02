@@ -48,6 +48,7 @@ public class Deck {
 		}
 	}
 	
+	//incomplete
 	public boolean equals (Deck[] x)
 	{
 		boolean wholeDeck = true;
@@ -59,6 +60,7 @@ public class Deck {
 		return wholeDeck;
 	}
 	
+	//incomplete
 	public Deck[] deal(int hands, int cardPerHand)
 	{
 		Card[] removed = new Card[hands * cardPerHand]
