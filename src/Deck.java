@@ -49,27 +49,28 @@ public class Deck {
 	}
 	
 	//incomplete
-	public boolean equals (Deck[] x)
+	public boolean equals(Deck x)
 	{
 		boolean wholeDeck = true;
 		for(int i = 0; i < deck.length; i++)
 		{
-			if(deck[i] != x[i])
+			//if(deck[i] != x[i])
 				wholeDeck = false;
 		}
 		return wholeDeck;
 	}
 	
 	//incomplete
-	public Deck[] deal(int hands, int cardPerHand)
+	/*public Deck[] deal(int hands, int cardPerHand)
 	{
-		Card[] removed = new Card[hands * cardPerHand]
+		Card[] removed = new Card[hands * cardPerHand];
 	}
+	*/
 	
-	public Card pick()
+	public Cards pick()
 	{
-		int randInt = new (int)(Math.random()*52)
-		Card picked = deck[randInt];
+		int randInt = (int)(Math.random()*52);
+		Cards picked = deck[randInt];
 		while(randInt < deck.length)
 		{
 			deck[randInt] = deck[randInt - 1];
