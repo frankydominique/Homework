@@ -14,7 +14,7 @@ public class TestCardsAndDeck {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("testing");
-		Deck test = new Deck();
+		Deck test = new Deck(false);
 		System.out.println("Created");
 		System.out.println(test.toString());
 	}

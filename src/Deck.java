@@ -11,7 +11,7 @@ import javax.smartcardio.Card;
 public class Deck {
 	
 	private Cards[] deck = new Cards[52];
-	private static int topCard = 1;
+	private int topCard = 1;
 
 	/**
 	 * @param args
@@ -20,7 +20,7 @@ public class Deck {
 	public Deck()
 	{
 		int pos = 0;
-		for(int s = 1; s<4; s++)
+		for(int s = 1; s<=4; s++)
 		{
 			for(int r = 1; r <= 13; r++)
 			{
@@ -32,10 +32,22 @@ public class Deck {
 	
 	public Deck(boolean shuffled)
 	{
-		int suit, rank, pos;
+		int switcher, pos;
 		if(shuffled == false)
 		{
-			
+			pos = 0;
+			for(int s = 1; s <= 4; s++)
+			{
+				for(int r = 1; r <= 13; r++)
+				{
+					deck[pos] = new Cards(s, r);
+					switcher = (int)(Math.random() * pos);
+					Cards temp = deck[pos];
+					deck[pos] = deck[switcher];
+					deck[switcher] = temp;
+					pos++;
+				}
+			}
 		} else {
 			pos = 0;
 			for(int s = 1; s<4; s++)
@@ -84,8 +96,14 @@ public class Deck {
 	public String toString()
 	{
 		String list = "";
-		for(Cards x: deck)
-			list += x.toString();
+		for(int pos = 0; pos < 13; pos++)
+		{
+			for(int i = pos; i < deck.length; i += 13)
+			{
+				list += String.format("%5s of %-8s", deck[i].getRankStr(), deck[i].getSuit());
+			}
+			list += String.format("%n");
+		}
 		return list;
 	}
 	

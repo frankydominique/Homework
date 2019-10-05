@@ -133,7 +133,7 @@ public class Cards implements Comparable<Cards>{
 	
 	public String toString()
 	{
-		return this.getRankStr() + this.getSuit();
+		return this.getRankStr() + " " + this.getSuit();
 	}
 	
 	/**
