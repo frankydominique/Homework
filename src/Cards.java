@@ -4,7 +4,9 @@
 
 /**
  * @author Franceska
- *
+ * Card Class
+ * DECSII
+ * Mrs. Kelly
  */
 
 public class Cards implements Comparable<Cards>{
@@ -170,7 +172,7 @@ public class Cards implements Comparable<Cards>{
 	 */
 	public String toString()
 	{
-		return this.getRankStr() + " " + this.getSuit();
+		return this.getRankStr() + " of " + this.getSuit();
 	}
 	
 	/**

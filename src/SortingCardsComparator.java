@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
  * @author Franceska
  * Cards Comparator based on rank
  */
