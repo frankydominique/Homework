@@ -9,9 +9,11 @@
 
 public class Cards implements Comparable<Cards>{
 
+	//fields
 	private int suit;
 	private int rank;
 	
+	//constructors
 	public Cards(int s, int r)
 	{
 		suit = s;
@@ -36,7 +38,11 @@ public class Cards implements Comparable<Cards>{
 		rank = convertRanksToInt(r);
 	}
 	
-	//converts String ranks given in constructor to int ranks
+	/*
+	 * converts String ranks given in constructor to int ranks
+	 * 
+	 * @param	s string of ranks needing conversion to int
+	 */
 	public static int convertRanksToInt(String s)
 	{
 		if(s.equalsIgnoreCase("jack"))
@@ -49,7 +55,11 @@ public class Cards implements Comparable<Cards>{
 			return -1;
 	}
 
-	//converts int Rank to String
+	/*
+	 * converts int Rank to String
+	 * 
+	 * @param	s int of rank going to be converted to string
+	 */
 	public static String convertRanksToString(int s)
 	{
 		if(s == 11)
@@ -62,7 +72,11 @@ public class Cards implements Comparable<Cards>{
 			return(s+ "");
 	}
 	
-	//converts string suit given in constructor to int suit
+	/*
+	 * converts string suit given in constructor to int suit
+	 * 
+	 * @param	s String of suit needing conversion to int
+	 */
 	public static int convertSuitToInt(String s)
 	{
 		if(s.equalsIgnoreCase("Spade") || s.equalsIgnoreCase("spades"))
@@ -77,6 +91,11 @@ public class Cards implements Comparable<Cards>{
 			return -1;
 	}
 	
+	/*
+	 * converts int representation of suit to string
+	 * 
+	 * @param	s int representation of suit needing conversion to string
+	 */
 	public static String convertSuitToString(int s)
 	{
 		if(s == 1)
@@ -91,6 +110,7 @@ public class Cards implements Comparable<Cards>{
 			return "" + 2;
 	}
 	
+	//getters
 	public String getSuit()
 	{
 		return convertSuitToString(suit);
@@ -111,7 +131,11 @@ public class Cards implements Comparable<Cards>{
 		return suit;
 	}
 	
-	//incomplete
+	/*
+	 * compares cards to see if they are identical
+	 * 
+	 * @param	x Card of this being compared to
+	 */
 	public int compareTo(Cards x)
 	{
 		String card1 = this.toString();
@@ -119,6 +143,11 @@ public class Cards implements Comparable<Cards>{
 		return card1.compareTo(card2);
 	}
 	
+	/*
+	 * compares card to given object
+	 * 
+	 * @param	x object being compared to card
+	 */
 	public boolean equals(Object x)
 	{
 		if(x != null)
@@ -126,11 +155,19 @@ public class Cards implements Comparable<Cards>{
 		return false;
 	}
 	
+	/*
+	 * converts to string used within the class
+	 * 
+	 * @param	x card needing conversion to string
+	 */
 	public static String toString(Cards x)
 	{
 		return x.getRankStr() + x.getSuit();
 	}
 	
+	/*
+	 * converts to string outside of class
+	 */
 	public String toString()
 	{
 		return this.getRankStr() + " " + this.getSuit();
