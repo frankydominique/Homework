@@ -5,13 +5,15 @@
 public class Deck {
 	
 	//fields
-	private Cards[] deck = new Cards[52];
+	private Cards[] deck;
 	private static Cards[] temp;
-	private int topCard = 1;
+	private int topCard;
+	private final int fullDeckLength = 52;
 	
 	//constructors
 	public Deck()
 	{
+		deck = new Cards[fullDeckLength];
 		int pos = 0;
 		for(int s = 1; s<=4; s++)
 		{
@@ -21,6 +23,7 @@ public class Deck {
 				pos++;
 			}
 		}
+		topCard = deck.length - 1;
 	}
 	
 	/*
@@ -30,6 +33,7 @@ public class Deck {
 	 */
 	public Deck(boolean shuffled)
 	{
+		deck = new Cards[fullDeckLength];
 		int switcher, pos;
 		if(shuffled == false)
 		{
@@ -56,26 +60,55 @@ public class Deck {
 				}
 			}
 		}
+		topCard = deck.length - 1;
 	}
+	
 	
 	public Deck(int x)
 	{
 		deck = new Cards[x];
+		
+		topCard = deck.length - 1;
+	}
+	
+	/*
+	 * shuffles cards in this deck
+	 * 
+	 * @return	void
+	 */
+	public void shuffle()
+	{
+		int switcher, pos;
+		pos = 0;
+		for(int s = 1; s <= 4; s++)
+		{
+			for(int r = 1; r <= 13; r++)
+			{
+				deck[pos] = new Cards(s, r);
+				switcher = (int)(Math.random() * pos);
+				Cards temp = deck[pos];
+				deck[pos] = deck[switcher];
+				deck[switcher] = temp;
+				pos++;
+			}
+		}
 	}
 	
 	/*checks if this deck is equal to given deck
 	*
 	*@param	x object given to compare current deck to
+	*@return	boolean of whether these cards have the same value
 	*/
 	public boolean equals(Object x)
 	{		
-		String first = this.toString();
-		String second = ((Deck)x).toString();
-		
-		System.out.print(first);
-		System.out.print(second);
-		
-		return first.contentEquals(second);
+		if(x instanceof Deck)
+		{
+			String first = this.toString();
+			String second = ((Deck)x).toString();
+			
+			return first.equals(second);
+		} else
+			return false;
 	}
 	
 	/*
@@ -83,20 +116,26 @@ public class Deck {
 	 * 
 	 * @param hands number of mini decks to be created
 	 * @param cardPerHand number of cards per mini deck
+	 * @return	Deck[] a deck of decks representing different hands
 	 */
 	public Deck[] deal(int hands, int cardPerHand)
 	{
+		if(hands * cardPerHand > deck.length)
+			return null;
+		
 		Cards[] removed = new Cards[hands * cardPerHand];
+		
 		for(int i = 0; i < removed.length; i++)
 		{
-			removed[i] = pick();
+			removed[i] = deck[topCard];
+			deck[topCard] = null;
+			topCard--;
 		}
 		
 		int pos = 0;
 		Deck[] toBeDealt = new Deck[hands];
 		for(int i = 0; i < toBeDealt.length; i++)
 		{
-			System.out.println(i);
 			toBeDealt[i] = new Deck(cardPerHand);
 			for(int j = 0; j < toBeDealt[i].getLength(); j++)
 			{
@@ -111,12 +150,13 @@ public class Deck {
 	/*
 	 * chooses a card from the deck
 	 * 
+	 * @return	Cards a random card picked from deck
 	 */
 	public Cards pick()
 	{
-		int randInt = (int)(Math.random() * 52);
+		int randInt = (int)(Math.random() * deck.length);
 		Cards picked = deck[randInt];
-		for(int k = randInt + 1; k < deck.length; k++)
+		for(int k = topCard + 1; k < deck.length; k++)
 			deck[k - 1] = deck[k];
 		return picked;
 	}
@@ -150,7 +190,6 @@ public class Deck {
 	 */
 	public void mergeSort()
 	{
-		System.out.println("check 1");
 		int n = deck.length;
 		temp = new Cards[n];
 		recursiveSort(deck, 0, n-1);
@@ -180,7 +219,7 @@ public class Deck {
 			recursiveSort(x, mid + 1, to);
 			merge(x, from, mid, to);
 		}
-		System.out.println("test 2");
+
 	}
 	
 	/*
@@ -225,23 +264,32 @@ public class Deck {
 		for(k = from; k <= to; k++)
 			a[k] = temp[k];
 		
-		System.out.println("test 3");
 	}
 	
 	/*
 	 * translates deck of cards into string
+	 * 
+	 * @return	String string of this deck
 	 */
 	public String toString()
 	{
 		String list = "";
-		for(int pos = 0; pos < 13; pos++)
+		if(deck.length == fullDeckLength)
 		{
-			for(int i = pos; i < deck.length; i += 13)
+			for(int pos = 0; pos < 13; pos++)
 			{
-				list += String.format("%5s of %-8s", deck[i].getRankStr(), deck[i].getSuit());
+				for(int i = pos; i < deck.length; i += 13)
+				{
+					list += String.format("%5s of %-8s \t", deck[i].getRankStr(), deck[i].getSuit());
+				}
+				list += String.format("%n");
 			}
-			list += String.format("%n");
+		} else {
+			for(Cards x: deck)
+				list += x.toString() + "\n";
 		}
+		
+		
 		return list;
 	}
 	
@@ -273,7 +321,13 @@ public class Deck {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("working");
+		Deck tester = new Deck();
+		System.out.println("working2");
+		System.out.println(tester.toString());
+		Deck[] testing = tester.deal(3,3);
+		for(Deck x: testing)
+			System.out.println("hand: " + x);
 	}
 
 }

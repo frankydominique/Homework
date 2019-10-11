@@ -18,26 +18,39 @@ public class Cards implements Comparable<Cards>{
 	//constructors
 	public Cards(int s, int r)
 	{
-		suit = s;
-		rank = r;
+		if(s > 0 && r > 0 && s < 5 && r < 14)
+		{
+			suit = s;
+			rank = r;
+		} else throw new IllegalArgumentException("Suit must be 1 to 4 and Rank must be 1 to 13");
 	}
 	
 	public Cards(String s, String r)
 	{
+		if (s == null || r == null)
+			throw new IllegalArgumentException("Invalid Input");
 		suit = convertSuitToInt(s);
 		rank = convertRanksToInt(r);
 	}
 	
 	public Cards(String s, int r)
 	{
-		suit = convertSuitToInt(s);
-		rank = r;
+		if(r > 0 && r < 14)
+		{
+			suit = convertSuitToInt(s);
+			rank = r;
+		} else throw new IllegalArgumentException("Suit must be 1 to 4 and Rank must be 1 to 13");
+		
 	}
 	
 	public Cards(int s, String r)
 	{
-		suit = s;
-		rank = convertRanksToInt(r);
+		if(s > 0 && s < 14)
+		{
+			suit = s;
+			rank = convertRanksToInt(r);
+		} else throw new IllegalArgumentException("Suit must be 1 to 4 and Rank must be 1 to 13");
+		
 	}
 	
 	/*
@@ -47,29 +60,29 @@ public class Cards implements Comparable<Cards>{
 	 */
 	public static int convertRanksToInt(String s)
 	{
-		if(s.equalsIgnoreCase("jack"))
-			return 11;
-		else if(s.equalsIgnoreCase("queen"))
-			return 12;
-		else if(s.equalsIgnoreCase("king"))
-			return 13;
-		else
-			return -1;
+		String[] ranksStr = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+				"Nine", "Ten", "Jack", "Queen", "King"};
+		
+		for(int i = 0; i < ranksStr.length; i++)
+		{
+			if(s.equalsIgnoreCase(ranksStr[i]))
+				return i + 1;
+		}
+		return -1;
 	}
 
 	/*
 	 * converts int Rank to String
 	 * 
 	 * @param	s int of rank going to be converted to string
+	 * @return	String equivalent of integer param
 	 */
-	public static String convertRanksToString(int s)
+	public String convertRanksToString(int s)
 	{
-		if(s == 11)
-			return "jack";
-		else if(s == 12)
-			return "queen";
-		else if(s == 13)
-			return "king";
+		String[] ranksStr = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+				"Nine", "Ten", "Jack", "Queen", "King"};
+		if(s > -1 && s < ranksStr.length + 1)
+			return ranksStr[s - 1];
 		else
 			return(s+ "");
 	}
@@ -78,16 +91,18 @@ public class Cards implements Comparable<Cards>{
 	 * converts string suit given in constructor to int suit
 	 * 
 	 * @param	s String of suit needing conversion to int
+	 * @param	int returns integer equivalent of a suit
+	 * @return	int equivalent of given suit as String
 	 */
-	public static int convertSuitToInt(String s)
+	public int convertSuitToInt(String s)
 	{
-		if(s.equalsIgnoreCase("Spade") || s.equalsIgnoreCase("spades"))
+		if(s.equalsIgnoreCase("Spade"))
 			return 1;
-		else if(s.equalsIgnoreCase("Hearts") || s.equalsIgnoreCase("heart"))
+		else if(s.equalsIgnoreCase("Hearts"))
 			return 2;
-		else if(s.equalsIgnoreCase("Clubs") || s.equalsIgnoreCase("club"))
+		else if(s.equalsIgnoreCase("Clubs"))
 			return 3;
-		else if(s.equalsIgnoreCase("Diamonds") || s.equalsIgnoreCase("diamond"))
+		else if(s.equalsIgnoreCase("Diamonds"))
 			return 4;
 		else
 			return -1;
@@ -97,37 +112,51 @@ public class Cards implements Comparable<Cards>{
 	 * converts int representation of suit to string
 	 * 
 	 * @param	s int representation of suit needing conversion to string
+	 * @return	String equivalent of int parameter
 	 */
 	public static String convertSuitToString(int s)
 	{
 		if(s == 1)
-			return "spade";
+			return "Spade";
 		else if(s == 2)
-			return "hearts";
+			return "Hearts";
 		else if(s == 3)
-			return "clubs";
+			return "Clubs";
 		else if(s == 4)
-			return "diamonds";
+			return "Diamonds";
 		else
-			return "" + 2;
+			return "";
 	}
 	
-	//getters
+	/*
+	 * returns suit of this object
+	 * 
+	 * @return	suit of this card
+	 */
 	public String getSuit()
 	{
 		return convertSuitToString(suit);
 	}
 	
+	/*
+	 * @return	rank of this card
+	 */
 	public int getRank()
 	{
 		return rank;
 	}
 
+	/*
+	 * @return	String equivalent of this card's rank
+	 */
 	public String getRankStr()
 	{
 		return convertRanksToString(rank);
 	}
 	
+	/*
+	 * @return	int equivalent of this card's suit
+	 */
 	public int getSuitInt()
 	{
 		return suit;
@@ -137,38 +166,30 @@ public class Cards implements Comparable<Cards>{
 	 * compares cards to see if they are identical
 	 * 
 	 * @param	x Card of this being compared to
+	 * @return	int representing the precedence of this 
 	 */
 	public int compareTo(Cards x)
 	{
-		String card1 = this.toString();
-		String card2 = x.toString();
-		return card1.compareTo(card2);
+		return this.getRank() - x.getRank();
 	}
 	
 	/*
 	 * compares card to given object
 	 * 
 	 * @param	x object being compared to card
+	 * @return	boolean of whether or not this card is equal to given card
 	 */
+	
 	public boolean equals(Object x)
 	{
-		if(x != null)
+		if(x != null && x instanceof Cards)
 			return this.suit == ((Cards)x).getSuitInt() && this.rank == ((Cards)x).getRank();
 		return false;
 	}
 	
 	/*
-	 * converts to string used within the class
-	 * 
-	 * @param	x card needing conversion to string
-	 */
-	public static String toString(Cards x)
-	{
-		return x.getRankStr() + x.getSuit();
-	}
-	
-	/*
 	 * converts to string outside of class
+	 * @return	string of this card
 	 */
 	public String toString()
 	{

@@ -24,7 +24,8 @@ public class TestClass {
 		{
 			test1 = (int)(Math.random() * 10);
 			test2 = (int)(Math.random() * 10);
-			testCards();
+			System.out.println("Test1: " + test1 + " and Test2: " + test2);
+			//testCards();
 			testDeck();
 		}
 		
@@ -37,12 +38,12 @@ public class TestClass {
 		Cards testing2 = new Cards("Hearts", test1);
 		Cards testing3 = new Cards(test1, "Jack");
 		Cards testing4 = new Cards(test2, test1);
-		Cards testing5 = new Cards(test1, null);
-		Cards testing6 = new Cards(null, test2);
+		//Cards testing5 = new Cards(test1, null);
+		//Cards testing6 = new Cards(null, test2);
 		
-		Cards[] testSet = {testing, testing1, testing2, testing3, testing4, testing5, testing6};
+		Cards[] testSet = {testing, testing1, testing2, testing3, testing4, };//testing5, testing6};
 		
-		CardComparator comp = new CardComparator();
+		SortingCardsComparator comp = new SortingCardsComparator();
 		
 		for(Cards x: testSet)
 		{
@@ -52,7 +53,7 @@ public class TestClass {
 		}
 	}
 	
-	public static void testDeck(int test1, int test2)
+	public static void testDeck()
 	{
 		Deck test = new Deck();
 		Deck testing = new Deck(false);
@@ -76,14 +77,16 @@ public class TestClass {
 			System.out.println();
 			
 			System.out.println("Testing mergeSort(): ");
+			testSet[i].shuffle();
+			System.out.println(testSet[i].toString());
 			testSet[i].mergeSort();
 			System.out.println(testSet[i].toString());
 			
-			System.out.println("Testing selectionSort()": );
+			System.out.println("Testing selectionSort(): ");
 			testSet[i].shuffle();
+			System.out.println(testSet[i].toString());
 			testSet[i].selectionSort();
-			for(Deck x: testSet)
-				System.out.println("selectionSort shuffle: " + x);
+			System.out.println(testSet[i].toString());
 		}
 		
 		
