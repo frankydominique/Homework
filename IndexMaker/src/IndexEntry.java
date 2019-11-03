@@ -18,7 +18,8 @@ public class IndexEntry {
 	public IndexEntry(String word)
 	{
 		this.word = word;
-		if(lineNums.isEmpty())
+		
+		if(lineNums == null)
 			lineNums = new TreeSet<Integer>();
 	}
 	
@@ -51,7 +52,7 @@ public class IndexEntry {
 	 */
 	public String toString()
 	{
-		String x = word + "";
+		String x = word + " ";
 		for(Integer y: lineNums)
 		{
 			x+= y + " ";

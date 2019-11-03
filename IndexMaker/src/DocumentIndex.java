@@ -10,7 +10,13 @@ public class DocumentIndex{
 	
 	public DocumentIndex()
 	{
-		indices = new TreeMap<String, IndexEntry>();
+		indices = new TreeMap<String, IndexEntry>(new Comparator<String>()
+				{public int compare(String x, String y)
+				{
+					return x.compareToIgnoreCase(y);
+				}
+				}
+		);
 	}
 	
 	/*
@@ -23,10 +29,12 @@ public class DocumentIndex{
 	public void addWord(String word, int num)
 	{
 		IndexEntry temp;
-		//do i need to check if indices is empty? what happens if i just do contains?
+		
 		if(indices.isEmpty() || !indices.containsKey(word))
+		{
 			indices.put(word, new IndexEntry(word));
-
+		}
+		
 		temp = indices.get(word);
 		temp.add(num);
 	}
@@ -39,11 +47,34 @@ public class DocumentIndex{
 	 */
 	public void addAllWords(String str, int num)
 	{
-		String temp = str;
-		for(int i = 0; i < str.length(); i = temp.indexOf(" " + 1))
+		String[] words = str.split(" ");
+		
+		for(int i = 0; i < words.length; i++)
 		{
-			temp = temp.substring(i, temp.indexOf(" "));
-			addWord(temp, num);
+			char[] chars = words[i].toCharArray();
+			for(char x: chars)
+				if(!Character.isLetter(x))
+					words[i] = words[i].replace(x, ' ');
 		}
+		
+		for(String x: words)
+			addWord(x.toUpperCase(), num);
 	}
+	
+	/*
+	 * Returns a string representation of this DocumentIndex object
+	 * 
+	 * @return	String representation of DocumentIndex object
+	 */
+	public String toString()
+	{
+		String doc = "";
+		for(String x: indices.keySet())
+		{
+			IndexEntry temp = indices.get(x);
+			doc+= temp.toString() + "\n";
+		}
+		return doc;
+	}
+
 }
