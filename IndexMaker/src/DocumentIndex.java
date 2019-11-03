@@ -54,7 +54,7 @@ public class DocumentIndex{
 			char[] chars = words[i].toCharArray();
 			for(char x: chars)
 				if(!Character.isLetter(x))
-					words[i] = words[i].replace(x, ' ');
+					words[i] = words[i].replace(x, '\b');
 		}
 		
 		for(String x: words)

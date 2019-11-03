@@ -10,7 +10,9 @@ import javax.swing.*;
 public class IndexMaker {
 
 	private static File input;
-	private static File output;
+	private static File input2;
+	private static File input3;
+	private static File output, output2, output3;
 	/**
 	 * @param args[0] input file
 	 * @param args[1] output file
@@ -20,13 +22,22 @@ public class IndexMaker {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		input = new File(args[0]);
+		input2 = new File(args[2]);
+		input3 = new File(args[3]);
 		if(args[1] != null) output = new File(args[1]);
 		else output = new File(args[0] + "WordIndex");
+		if(args[4] != null) output2 = new File(args[4]);
+		else output2 = new File(args[0] + "WordIndex");
+		if(args[5] != null) output3 = new File(args[5]);
+		else output3 = new File(args[0] + "WordIndex");
 		
-		String x = addDocument();
+		String x = addDocument(input);
+		String y = addDocument(input2);
+		String z = addDocument(input3);
 		
-		printDocIndex(x);
-		
+		printDocIndex(x, output);
+		printDocIndex(y, output2);
+		printDocIndex(z, output3);
 	}
 	
 	/*
@@ -34,11 +45,11 @@ public class IndexMaker {
 	 * 
 	 * @return	String representation of the DocumentIndex
 	 */
-	public static String addDocument()
+	public static String addDocument(File x)
 	{
 		DocumentIndex test = new DocumentIndex();
 		
-		String[] lines = loadFile(input).toString().split("\\r?\\n");
+		String[] lines = loadFile(x).toString().split("\\r?\\n");
 		
 		for(int i = 0; i < lines.length; i++)
 			test.addAllWords(lines[i], i + 1);
@@ -51,13 +62,13 @@ public class IndexMaker {
 	 * 
 	 * @param x - the string version of the file
 	 */
-	public static void printDocIndex(String x)
+	public static void printDocIndex(String x, File y)
 	{
 		Writer append2 = null;
 		
 		try
 		{
-			append2 = new FileWriter(output, true);
+			append2 = new FileWriter(y, true);
 		}
 		catch (IOException ex)
 		{
