@@ -1,0 +1,22 @@
+ALL 1 2 
+BUT 3 
+CLOSE 5 
+DONT 6 
+EVER 1 2 6 
+GO 6 
+HAVE 6 
+HOLD 1 2 3 4 5 
+HOW 1 2 
+I 3 4 6 
+IVE 1 2 
+IS 1 2 
+KNOWN 1 2 
+LET 6 
+MY 1 2 
+NOW 3 4 
+OWN 1 2 
+TO 1 2 6 
+WANNA 3 4 
+WANT 6 
+YOU 3 4 5 6 
+
