@@ -292,7 +292,7 @@ public class FileReading {
 		int pos = 0;
 		int subWordsElem = 1;
 		
-		while(pos < x.length())
+		while(pos < x.length() && subWordsElem <= subWords.size())
 		{
 			if(x.charAt(pos) == '<')
 			{
