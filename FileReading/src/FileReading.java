@@ -32,7 +32,12 @@ public class FileReading {
 		
 		StringBuffer story = loadFile(args[2]);
 		
-		collectPrompts(story);
+		if(args.length == 4)
+		{
+			collectPromptsFromFile(args[3]);
+		} else {
+			collectPrompts(story);
+		}
 		
 		enterPrompts(story);
 		
@@ -40,7 +45,8 @@ public class FileReading {
 		
 	}
 	
-	/*
+	
+	/**
 	 * Void, writes up indicator that input file cannot be reached
 	 * 
 	 * @param pathname of file that cannot be reached
@@ -66,9 +72,12 @@ public class FileReading {
 		
 	}
 	
-	//this method counts the number of opening braces and closing braces in a file to check if the numbers
-	//	equal and are balanced
-	//@param name of input file
+	/**
+	 * this method counts the number of opening braces and closing braces in a file to check if the numbers
+	 * equal and are balanced
+	 *@param name of input file
+	 * 
+	 */
 	public static boolean bracesBalanced(File x)
 	{
 		int pos = 0, beginBrace = 0, endBrace = 0;
@@ -80,6 +89,8 @@ public class FileReading {
 			
 			while((pos = input.read()) != -1)
 			{
+				if(endBrace > beginBrace)
+					return false;
 				if((char)pos == '{')
 				{
 					beginBrace++;
@@ -100,7 +111,7 @@ public class FileReading {
 		return false;
 	}
 	
-	/*
+	/**
 	 * prints a blank line
 	 * 
 	 * @param pathname filename where blank line is to be posted
@@ -124,7 +135,7 @@ public class FileReading {
 	}
 
 	
-	/*
+	/**
 	 * Checks if braces in the given file are balanced
 	 * 
 	 * @param	x outcome of bracesBalanced to be printed
@@ -152,7 +163,7 @@ public class FileReading {
 	}
 	
 	
-	/*
+	/**
 	 * Prints outcome of fileIdentical
 	 * 
 	 * @param	x outcome of fileIdentical to be printed
@@ -180,7 +191,7 @@ public class FileReading {
 	}
 	
 	
-	/*
+	/**
 	 * Returns boolean representing whether the two given files are the identical or not
 	 * 
 	 * @param	x pathname of file1 being compared
@@ -196,7 +207,7 @@ public class FileReading {
 		return fileX.equals(fileY);
 	}
 	
-	/*
+	/**
 	 * Creates a StringBuffer of the given file
 	 * 
 	 * @param	pathname name of the file wanted to turn into a StringBuffer
@@ -226,7 +237,7 @@ public class FileReading {
 		return strBuffer;
 	}
 	
-	/*
+	/**
 	 * Gets a file, finds tags in file, and asks for the user to enter words matching the tags
 	 * 
 	 * @param	x StringBuffer of the file wanted to be chosen from loadFile
@@ -250,11 +261,30 @@ public class FileReading {
 		}
 	}
 	
-	/*
+	/**
+	 * collects word substitutions from a given file and adds them to the ArrayList of words to be used as
+	 * 	substitutes
+	 * 
+	 * @param x name of the file with the words
+	 */
+	public static void collectPromptsFromFile(String x)
+	{
+		String file = loadFile(x).toString();
+		Scanner scanner = new Scanner(file);
+		String line;
+		
+		while(scanner.hasNextLine())
+		{
+			line = scanner.nextLine();
+			subWords.add(line);
+		}
+	}
+	
+	/**
 	 * Replaces the StringBuffer of the chosen file from loadFile with the words given
 	 * 	in collectPrompts from ArrayList subWords
 	 * 
-	 * @param the name of the file needing updating
+	 * @param x the name of the file needing updating
 	 */
 	public static void enterPrompts(StringBuffer x)
 		throws IOException
@@ -274,7 +304,7 @@ public class FileReading {
 		
 	}
 	
-	/*
+	/**
 	 * prints the newly updated StringBuffer story file to output file
 	 * 
 	 * @param	x StringBuffer of the file that will be copied
@@ -289,7 +319,7 @@ public class FileReading {
 		}
 		catch (IOException ex)
 		{
-			System.out.println("Both files are not working");
+			unableToOpenFile();
 		}
 		
 		PrintWriter toPrint = new PrintWriter(append2);
