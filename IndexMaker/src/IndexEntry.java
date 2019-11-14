@@ -9,7 +9,7 @@ public class IndexEntry {
 	private String word;
 	private TreeSet<Integer> lineNums;
 	
-	/*
+	/**
 	 * Constructs a new IndexEntry for a word and a new tree set of lines if word doesn't
 	 *	exist already 
 	 * 
@@ -23,7 +23,7 @@ public class IndexEntry {
 			lineNums = new TreeSet<Integer>();
 	}
 	
-	/*
+	/**
 	 * adds a integer to lineNums if lineNums doesn't contain it already
 	 * 
 	 *@param num - integer give to store in lineNums 
@@ -35,7 +35,7 @@ public class IndexEntry {
 		lineNums.add(num);
 	}
 	
-	/*
+	/**
 	 * returns the word of the IndexEntry
 	 * 
 	 * @return String of the word
@@ -45,7 +45,7 @@ public class IndexEntry {
 		return word;
 	}
 	
-	/*
+	/**
 	 * returns a string representation of the IndexEntry for a class
 	 * 
 	 *@return String of the class 

@@ -1,6 +1,7 @@
 /**
  * @author Franceska
- *
+ * DE Comp Sci II
+ * Mrs. Kelly
  */
 
 import java.util.*;
@@ -40,7 +41,7 @@ public class IndexMaker {
 		printDocIndex(z, output3);
 	}
 	
-	/*
+	/**
 	 * Returns String of the DocumentIndex
 	 * 
 	 * @return	String representation of the DocumentIndex
@@ -57,7 +58,7 @@ public class IndexMaker {
 		return test.toString();
 	}
 	
-	/*
+	/**
 	 * Prints the DocumentIndex of the given string version of the file
 	 * 
 	 * @param x - the string version of the file
@@ -81,7 +82,7 @@ public class IndexMaker {
 		toPrint.close();
 	}
 	
-	/*
+	/**
 	 * Returns a StringBuffer representation of the given file
 	 * 
 	 * @param x - File wanted to turn into a StringBuffer

@@ -8,6 +8,9 @@ public class DocumentIndex{
 
 	private TreeMap<String, IndexEntry> indices;
 	
+	/**
+	 * 
+	 */
 	public DocumentIndex()
 	{
 		indices = new TreeMap<String, IndexEntry>(new Comparator<String>()
@@ -19,7 +22,7 @@ public class DocumentIndex{
 		);
 	}
 	
-	/*
+	/**
 	 * Adds num to the IndexEntry for word using IndexEntry's add(num) method
 	 * If indices doesn't contain this word, adds key to indices
 	 * 
@@ -39,7 +42,7 @@ public class DocumentIndex{
 		temp.add(num);
 	}
 	
-	/*
+	/**
 	 * Extracts all the words from str and for each word calls addWord(word, num)
 	 * 
 	 * @param str - line from a certain document
@@ -61,7 +64,7 @@ public class DocumentIndex{
 			addWord(x.toUpperCase(), num);
 	}
 	
-	/*
+	/**
 	 * Returns a string representation of this DocumentIndex object
 	 * 
 	 * @return	String representation of DocumentIndex object
