@@ -23,16 +23,26 @@ public class FileReading {
 	 */
 	public static void main(String[] args) throws IOException {
 
-		File userFile = new File(args[0]);
+		Scanner input = new Scanner(System.in);
+		
+		File userFile;
+		
+		//TESTING IF BRACES ARE BALANCED	
+		if(args.length < 1)
+			userFile = new File("" + input.nextLine());
+		else
+			userFile = new File(args[0]);
 		
 		outputPrintBraces(bracesBalanced(userFile));
 		
 		outputBlank();
 		
+		//TESTING IF FILES ARE IDENTICAL
 		outputPrintIdentical(fileIdentical(args[0], args[1]));
 		
 		outputBlank();
 		
+		//TESTING STORY INSERTS
 		StringBuffer story = loadFile(args[2]);
 		
 		if(args.length == 4)
