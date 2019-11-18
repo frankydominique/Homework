@@ -15,6 +15,9 @@ public class FileReading {
 	private static int partNum = 1;
 
 	/**
+	 * args[0] is for braces balanced and compares to args[1]
+	 * args[2] is the story
+	 * args[3] is the words
 	 * @param args
 	 * @throws IOException 
 	 */
