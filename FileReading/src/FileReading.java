@@ -28,8 +28,10 @@ public class FileReading {
 		File userFile;
 		
 		//TESTING IF BRACES ARE BALANCED	
-		if(args.length < 1)
+		if(args.length < 1) {
+			System.out.println("Please enter a file name: ");
 			userFile = new File("" + input.nextLine());
+		}
 		else
 			userFile = new File(args[0]);
 		
@@ -38,12 +40,23 @@ public class FileReading {
 		outputBlank();
 		
 		//TESTING IF FILES ARE IDENTICAL
-		outputPrintIdentical(fileIdentical(args[0], args[1]));
+		if(args.length < 2) {
+			System.out.println("Please enter a file name: ");
+			outputPrintIdentical(fileIdentical(args[0], input.nextLine()));
+		}
+		else
+			outputPrintIdentical(fileIdentical(args[0], args[1]));
 		
 		outputBlank();
 		
 		//TESTING STORY INSERTS
-		StringBuffer story = loadFile(args[2]);
+		StringBuffer story;
+		if(args.length < 3) {
+			System.out.println("Please enter a file name: ");
+			story = loadFile(input.nextLine());
+		}
+		else
+			story = loadFile(args[2]);
 		
 		if(args.length == 4)
 		{
