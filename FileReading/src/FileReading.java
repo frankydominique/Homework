@@ -26,14 +26,18 @@ public class FileReading {
 		Scanner input = new Scanner(System.in);
 		
 		File userFile;
+		String userFileName;
 		
 		//TESTING IF BRACES ARE BALANCED	
 		if(args.length < 1) {
 			System.out.println("Please enter a file name: ");
-			userFile = new File("" + input.nextLine());
+			userFileName = input.nextLine();
+			userFile = new File(userFileName);
 		}
-		else
+		else {
 			userFile = new File(args[0]);
+			userFileName = args[0];
+		}
 		
 		outputPrintBraces(bracesBalanced(userFile));
 		
@@ -42,10 +46,10 @@ public class FileReading {
 		//TESTING IF FILES ARE IDENTICAL
 		if(args.length < 2) {
 			System.out.println("Please enter a file name: ");
-			outputPrintIdentical(fileIdentical(args[0], input.nextLine()));
+			outputPrintIdentical(fileIdentical(userFileName, input.nextLine()));
 		}
 		else
-			outputPrintIdentical(fileIdentical(args[0], args[1]));
+			outputPrintIdentical(fileIdentical(userFileName, args[1]));
 		
 		outputBlank();
 		
