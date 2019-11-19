@@ -38,6 +38,7 @@ public class FileReading {
 			userFile = new File(args[0]);
 			userFileName = args[0];
 		}
+		System.out.println(bracesBalanced(userFile));
 		
 		outputPrintBraces(bracesBalanced(userFile));
 		
@@ -62,7 +63,7 @@ public class FileReading {
 		else
 			story = loadFile(args[2]);
 		
-		if(args.length == 4)
+		if(args.length <= 4)
 		{
 			collectPromptsFromFile(args[3]);
 		} else {
