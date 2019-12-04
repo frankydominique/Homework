@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
  * @author Franceska
  *
  */
@@ -14,7 +10,6 @@ public class BrowserModel {
 	Stack<Integer> fwd;
 	Stack<Integer> bck;
 	int lineNum = 0;
-	
 	public BrowserModel(BrowserView view)
 	{
 		this.view = view;
@@ -25,20 +20,22 @@ public class BrowserModel {
 	
 	public void back()
 	{
-		if(!hasBack())
-			return;
-		fwd.push(bck.peek());
-		bck.pop();
-		lineNum--;
+		if(hasBack())
+		{
+			lineNum = bck.peek();
+			fwd.push(bck.peek());
+			view.update(bck.pop());
+		}
 	}
 	
 	public void forward()
 	{
-		if(!hasForward())
-			return;
-		bck.push(fwd.peek());
-		fwd.pop();
-		lineNum++;
+		if(hasForward())
+		{
+			lineNum = fwd.peek();
+			bck.push(fwd.peek());
+			view.update(fwd.pop());
+		}
 	}
 	
 	public void home()
@@ -50,8 +47,9 @@ public class BrowserModel {
 	
 	public void followLink(int n)
 	{
-		lineNum = n;
+		view.update(n);
 		bck.push(lineNum);
+		lineNum = n;
 	}
 	
 	//return true means enable, return false means disable
