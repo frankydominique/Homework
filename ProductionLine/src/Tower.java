@@ -42,4 +42,15 @@ public class Tower {
 		while(!pyramid.isEmpty())
 			regular.push(pyramid.pop());
 	}
+	
+	public String toString()
+	{ 
+		Iterator<Disk> iter = pyramid.iterator();
+		String pyrString = "";
+		
+		while(iter.hasNext())
+			pyrString += iter.next();
+		
+		return pyrString;
+	}
 }

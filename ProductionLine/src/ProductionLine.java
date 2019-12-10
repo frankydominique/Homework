@@ -45,4 +45,15 @@ public class ProductionLine {
 		return output.remove();
 	}
 	
+	public String toString()
+	{
+		Iterator<Tower> iter = output.iterator();
+		String outputString = "";
+		
+		while(iter.hasNext())
+			outputString += iter.next();
+		
+		return outputString;
+	}
+	
 }
