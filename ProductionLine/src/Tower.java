@@ -32,7 +32,22 @@ public class Tower {
 	
 	public int getTDRadius()
 	{
-		return pyramid.peek().getRadius();
+		int x = 0;
+		
+		try
+		{
+			x = pyramid.peek().getRadius();
+		}
+		catch (EmptyStackException | NullPointerException ex)
+		{
+			System.out.println("Pyramid is empty");
+		}
+		return x;
+	}
+	
+	public boolean isEmpty()
+	{
+		return pyramid.isEmpty();
 	}
 	
 	public void regular()
@@ -41,10 +56,15 @@ public class Tower {
 		
 		while(!pyramid.isEmpty())
 			regular.push(pyramid.pop());
+		
+		pyramid = regular;
 	}
 	
 	public String toString()
 	{ 
+		if(pyramid.isEmpty())
+			return "null";
+		
 		Iterator<Disk> iter = pyramid.iterator();
 		String pyrString = "";
 		

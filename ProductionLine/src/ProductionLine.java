@@ -15,6 +15,12 @@ public class ProductionLine {
 	{
 		input = new LinkedList<Disk>();
 		output = new LinkedList<Tower>();
+		robotArm = new Tower();
+	}
+	
+	public void addToInput(Disk disk)
+	{
+		input.add(disk);
 	}
 	
 	public void addDisk(Disk disk)
@@ -26,16 +32,27 @@ public class ProductionLine {
 	{
 		robotArm.regular();
 		output.add(robotArm);
+		
+		robotArm = new Tower();
 	}
 	
 	public void process()
 	{
 		while(!input.isEmpty())
 		{
-			if(robotArm == null)
+			if(input.peek().getRadius() <= 0)
+				input.remove();
+				
+			if(robotArm.isEmpty() && input.peek() != null && input.peek().getRadius() > 0)
+			{
 				robotArm.add(input.remove());
-			while(input.peek().getRadius() > robotArm.getTDRadius())
+			}
+			
+			while(input.peek() != null && input.peek().getRadius() > robotArm.getTDRadius())
+			{
 				robotArm.add(input.remove());
+			}
+			
 			unloadRobot();
 		}
 	}
@@ -45,13 +62,24 @@ public class ProductionLine {
 		return output.remove();
 	}
 	
+	public String inputToString()
+	{
+		Iterator<Disk> iter = input.iterator();
+		String outputString = "";
+		
+		while(iter.hasNext())
+			outputString += iter.next() + " ";
+		
+		return outputString;
+	}
+	
 	public String toString()
 	{
 		Iterator<Tower> iter = output.iterator();
 		String outputString = "";
 		
 		while(iter.hasNext())
-			outputString += iter.next();
+			outputString += iter.next() + " \n";
 		
 		return outputString;
 	}
