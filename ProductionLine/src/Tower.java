@@ -9,27 +9,47 @@ public class Tower {
 
 	private Stack<Disk> pyramid;
 	
+	/**
+	 * constructor for disk
+	 * @param disk starting disk of tower
+	 */
 	public Tower(Disk disk)
 	{
 		pyramid = new Stack<Disk>();
 		pyramid.push(disk);
 	}
 	
+	/**
+	 * no args constructor of tower
+	 */
 	public Tower()
 	{
 		pyramid = new Stack<Disk>();
 	}
 	
+	/**
+	 * adds disk to pyramid stack
+	 * @param x the disk to be added to pyramid
+	 */
 	public void add(Disk x)
 	{
 		pyramid.push(x);
 	}
 	
+	/**
+	 * peeks at pyramid stack and returns the top disk
+	 * @return top disk in the pyramid stack
+	 */
 	public Disk getTopDisk()
 	{
 		return pyramid.peek();
 	}
 	
+	/**
+	 * finds the top disk of the pyramid stack and returns its radius, if there is no top disk or the stack is 
+	 * empty, prints "Pyramid is empty"
+	 * @return radius of top disk of pyramid as an int
+	 */
 	public int getTDRadius()
 	{
 		int x = 0;
@@ -44,6 +64,7 @@ public class Tower {
 		}
 		return x;
 	}
+	
 	
 	public boolean isEmpty()
 	{
@@ -66,11 +87,14 @@ public class Tower {
 			return "null";
 		
 		Iterator<Disk> iter = pyramid.iterator();
-		String pyrString = "";
+		StringBuffer pyrString = new StringBuffer();
 		
 		while(iter.hasNext())
-			pyrString += iter.next();
+		{
+			pyrString.insert(0, iter.next() + "\n");
+		}
 		
-		return pyrString;
+		return pyrString.toString();
 	}
+	
 }

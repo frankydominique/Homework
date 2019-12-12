@@ -43,12 +43,14 @@ public class ProductionLine {
 			if(input.peek().getRadius() <= 0)
 				input.remove();
 				
-			if(robotArm.isEmpty() && input.peek() != null && input.peek().getRadius() > 0)
+			/*if(robotArm.isEmpty() && input.peek() != null && input.peek().getRadius() > 0)
 			{
 				robotArm.add(input.remove());
 			}
+			*/
 			
-			while(input.peek() != null && input.peek().getRadius() > robotArm.getTDRadius())
+			while(input.peek() != null && ((robotArm.isEmpty()  && input.peek().getRadius() > 0) || 
+					(!robotArm.isEmpty() && input.peek().compareTo(robotArm.getTopDisk()) > 0 )))	
 			{
 				robotArm.add(input.remove());
 			}

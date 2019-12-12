@@ -7,7 +7,10 @@ public class Disk implements Comparable<Disk>{
 	//fields
 	private int radius;
 	
-	//constructors
+	/**
+	 * constructors
+	 * @param r radius of disk
+	 */
 	public Disk(int r)
 	{
 		radius = r;
@@ -25,11 +28,19 @@ public class Disk implements Comparable<Disk>{
 		return this.getRadius() - other.getRadius();
 	}
 	
+	/**
+	 * returns the radius of this current Disk
+	 * @return radius of current disk as an int
+	 */
 	public int getRadius()
 	{
 		return radius;
 	}
 	
+	/**
+	 * returns the radius of current disk
+	 * @return string of current disk
+	 */
 	public String toString()
 	{
 		return "Radius is " + radius;
