@@ -67,13 +67,16 @@ public class Tower {
 	
 	/**
 	 * checks if pyramid is empty using isEmpty() of the stack class
-	 * @return true if stack is empty and false if stack isnt' empty
+	 * @return true if stack is empty and false if stack isn't empty
 	 */
 	public boolean isEmpty()
 	{
 		return pyramid.isEmpty();
 	}
 	
+	/**
+	 * flips the inverted pyramid stack upside down
+	 */
 	public void regular()
 	{
 		Stack<Disk> regular = new Stack<Disk>();
@@ -84,6 +87,10 @@ public class Tower {
 		pyramid = regular;
 	}
 	
+	/**
+	 * returns the string representation of this pyramid tower
+	 * @return String representation of this tower
+	 */
 	public String toString()
 	{ 
 		if(pyramid.isEmpty())

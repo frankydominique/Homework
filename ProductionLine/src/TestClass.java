@@ -13,11 +13,18 @@ public class TestClass {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//diskCheck();
-		//towerCheck();
-		productionLineCheck();
+		System.out.println("Disk check: ");
+		diskCheck();
+		System.out.println("Tower check: ");
+		towerCheck();
+		System.out.println("Production Line check: ");
+		for(int i = 0; i < 5; i++)
+			productionLineCheck();
 	}
 
+	/**
+	 * test all the methods within Disk by randomly assigning three disks radii
+	 */
 	public static void diskCheck()
 	{
 		Disk test1 = new Disk((int)(Math.random() * 10) + 1);
@@ -38,6 +45,9 @@ public class TestClass {
 		}
 	}
 	
+	/**
+	 * test all the methods within Tower by randomly assigning two towers no starting disk and two other towers a starting disk
+	 */
 	public static void towerCheck()
 	{
 		Tower test1 = new Tower();
@@ -70,6 +80,9 @@ public class TestClass {
 		}
 	}
 	
+	/**
+	 * tests ProductionLine and all its methods by assigning disks with randomly generated radii to the input line to create a tower
+	 */
 	public static void productionLineCheck()
 	{
 		ProductionLine test = new ProductionLine();
@@ -100,6 +113,8 @@ public class TestClass {
 		System.out.println("Processing disks to output...");
 		test.process();
 		
+		System.out.println("Printing towers from production line with lines between each tower. \nTowers are printed as their "
+				+ "actual forms, with the biggest radius at the bottom and smallest at the top");
 		System.out.println(test.toString());
 	}
 }
