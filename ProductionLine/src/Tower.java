@@ -65,7 +65,10 @@ public class Tower {
 		return x;
 	}
 	
-	
+	/**
+	 * checks if pyramid is empty using isEmpty() of the stack class
+	 * @return true if stack is empty and false if stack isnt' empty
+	 */
 	public boolean isEmpty()
 	{
 		return pyramid.isEmpty();
