@@ -11,6 +11,8 @@ public class Knapsack {
 	private static File[] files = new File[3];
 	private static int[] limits = new int[10];
 	private static int limitPos = 0;
+	private static ArrayList<List<Integer>> lists = new ArrayList<List<Integer>>();
+	private static File output = new File("knapsack.txt");
 	
 	/**
 	 * @param args
@@ -126,11 +128,42 @@ public class Knapsack {
 	
 	public void printFile()
 	{
+		Writer append2 = null;
+		
+		try
+		{
+			append2 = new FileWriter(output, true);
+		}
+		catch (IOException ex)
+		{
+			System.out.println("Unable to open file");
+		}
+		
+		PrintWriter toPrint = new PrintWriter(append2);
+		
+		for(int i = 0; i < files.length; i++)
+		{
+			toPrint.print(files[i] + "\t" + limits[i] + "\t"); //+ printNums(files[i]));
+			toPrint.println();
+			
+			for(Integer x: lists.get(i))
+				toPrint.print(x + "pound melon");
+			
+			toPrint.println();
+			toPrint.println();
+		}
+		
+		toPrint.close();
 		
 	}
 	
 	public String printNums(List<Integer> list)
 	{
-		return "";
+		StringBuffer nums = new StringBuffer();
+		
+		for(Integer x: list)
+			nums.append(x + ", ");
+		
+		return nums.toString();
 	}
 }
