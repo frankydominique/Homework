@@ -4,16 +4,14 @@ import javax.swing.*;
 
 /**
  * @author Franceska
- *
+ * This class has two knapsack algorithms and prints the output of one algorithm
  */
 public class Knapsack {
 
-	private static File[] files = new File[3];
-	private static int[] limits = new int[10];
-	private static int limitPos = 0;
-	private static int[][] values = new int[10][10];
-	private static int valuesXPos = 0;
-	private static ArrayList<List<Integer>> lists = new ArrayList<List<Integer>>();
+	/**
+	 * Fields
+	 */
+	private static File[] files;
 	private static File output = new File("knapsack.txt");
 	
 	/**
@@ -23,31 +21,26 @@ public class Knapsack {
 		// TODO Auto-generated method stub
 		//puts in the test file
 		
-		File test = new File("Tester.txt");
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter file name: ");
+		String path = input.nextLine();
+		File test = new File(path);
 		
 		//reads the test file and divides the test file into the smaller files to be used
 		readBigFile(test);
 		
-		//adds the limits and values to the corresponding lists
-		for(File x: files)
-			readLimsAndVals(x);
-		
-		
-		
-		//do knapsack - knapsack is working
-		for(int i = 0; i < files.length; i++)
-		{
-			System.out.println(knapsackSum(values[i], values[i].length - 1, limits[i], lists.get(i)));
-		}
 		printFile();
 		
-		/*ArrayList<Integer> test = new ArrayList<Integer>();
-		int[] set = {1, 2, 3, 4, 5};
-		System.out.println(knapsackSum(set, set.length - 1, 6, test));
-		for(Integer x: test)
-			System.out.println(x);*/
 	}
 	
+	/**
+	 * this finds the best combination of values within the limit but with the elements of
+	 * 	the most value
+	 * @param w the array with values
+	 * @param n the index of the last element to be considered within the array
+	 * @param limit the highest amount the values of the elements can be
+	 * @return the best combination of values
+	 */
 	public static int knapsack(int[] w, int n, int limit)
 	{
 		if(limit <= 0 || n < 0)
@@ -64,42 +57,62 @@ public class Knapsack {
 		}
 	}
 	
+	/**
+	 * this finds the best combination of values within the limit but with the elements of
+	 * 	the most value, prints the values used to the provided list
+	 * @param w
+	 * @param n
+	 * @param limit
+	 * @param list
+	 * @return the best combination of elements still within the limit
+	 */
 	public static int knapsackSum(int[] w, int n, int limit, List<Integer> list)
 	{
 		if(limit <= 0 || n < 0)
 			return 0;
-		else if (w[n] > limit)
+		else if(w[n] > limit)
 		{
-			int val = knapsackSum(w, n-1, limit, list);
-			list.add(val);
-			return val;
+			List<Integer> temp = new ArrayList<Integer>();
+			return knapsackSum(w, n - 1, limit, temp);
 		}
 		else
 		{
-			//int withoutLast = knapsack(w, n-1, limit);
 			List<Integer> withoutLastList = new ArrayList<Integer>();
 			List<Integer> withLastList = new ArrayList<Integer>();
+			
 			withLastList.add(w[n]);
+			
 			int withoutLast = knapsackSum(w, n-1, limit, withoutLastList);
 			int withLast = w[n] + knapsackSum(w, n-1, limit - w[n], withLastList);
 			
 			if(withoutLast > withLast)
 			{
-				list.add(withoutLast);
+				
+				list.addAll(withoutLastList);
 				return withoutLast;
-			}
+			} else
+			
 			list.addAll(withLastList);
 			return withLast;
 		}
 	}
 
-	//gets big file and breaks the different files and places it into files
-	public static void readBigFile(File pathname)
+	/**
+	 * gets big file and breaks the different files and adds them into files[]
+	 * @param pathname the name of the file containing all of the files to be looked through
+	 */
+	public static void readBigFile(File file)
 	{
-		File file = pathname;
-		
 		try
 		{
+			//counts how many files there are and then adds the files to file
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			int lines = 0;
+			while (reader.readLine() != null) lines++;
+			reader.close();
+			files = new File[lines];
+			
+			//will go through each file in the document and add it to the array
 			Scanner scanner = new Scanner(file);
 			String line;
 			int x = 0;
@@ -119,47 +132,75 @@ public class Knapsack {
 		}
 	}
 	
-	//reads the limit of each file
-	public static void readLimsAndVals(File pathname)
+	/**
+	 * reads the limit of each file
+	 * @param pathname the name of the file with all the values and a limit
+	 */
+	public static int readLimit(File file)
 	{
-		File file = pathname;
-		StringBuffer strBuffer = new StringBuffer((int)file.length());
-		
 		try
 		{
-			//makes a BufferedReader to read the file
-			BufferedReader input = new BufferedReader(new FileReader(file));
+			Scanner input = new Scanner(file);
 			
-			//adds the file into a string to read
-			int ch = 0;
-			while((ch = input.read()) != -1)
-				strBuffer.append((char)ch);
-			
-			Scanner scanner = new Scanner(file);
-			
-			limits[limitPos] = Integer.parseInt(scanner.nextLine());
-			limitPos++;
-			
-			int pos = 0;
-			while(scanner.hasNextLine())
+			if(input.hasNextLine())
 			{
-				values[valuesXPos][pos] = scanner.nextInt();
-				pos++;
+				int limit = input.nextInt();
+				return limit;
 			}
-			lists.add(new ArrayList<Integer>(pos));
-			valuesXPos++;
-			
-			scanner.close();
-			input.close();
 			
 		}
 		catch (IOException ex)
 		{
 			System.out.println("Not a valid File");
 		}
+		return -1;
 	}
 	
-	//prints all the top values into the output file
+	/**
+	 * reads the values of each file
+	 * @param file the file to be read
+	 * @return an int array of the possible values to be added
+	 */
+	public static int[] readValues(File file)
+	{
+		int[] temp;
+		try
+		{
+			BufferedReader input = new BufferedReader(new FileReader(file));
+			int lines = 0;
+			while (input.readLine() != null) lines++;
+			input.close();
+			
+			temp = new int[lines];
+			input.close();
+			
+			int pos = 0;
+			Scanner reader = new Scanner(file);
+			
+			//to skip the first line
+			if(reader.hasNextLine())
+				reader.nextLine();
+			
+			while(reader.hasNextLine() && reader.hasNextInt())
+			{
+				temp[pos] = reader.nextInt();;
+				pos++;
+			}
+			
+			return temp;
+			
+		}
+		catch (IOException ex)
+		{
+			System.out.println("Not a valid File");
+		}
+		temp = new int[0];
+		return temp;
+	}
+	
+	/**
+	 * prints all the top values into the output file knapsack.txt
+	 */
 	public static void printFile()
 	{
 		Writer append2 = null;
@@ -177,12 +218,19 @@ public class Knapsack {
 		
 		for(int i = 0; i < files.length; i++)
 		{
-			toPrint.print(files[i] + "\t" + limits[i] + "\t" + printNums(lists.get(i))); //+ printNums(files[i]));
+			File current = files[i];
+			int limit = readLimit(current);
+			int[] values = readValues(current);
+			
+			ArrayList<Integer> usedValues = new ArrayList<Integer>();
+			knapsackSum(values, values.length -1, limit, usedValues);
+			
+			toPrint.print(current + "\t" + limit + "\t" + printNums(usedValues)); 
 			toPrint.println();
 			
-			for(Integer x: lists.get(i))
+			for(Integer x: usedValues)
 				if(x != 0)
-					toPrint.print(x + "pound melon \n");
+					toPrint.print(x + " pound melon \n");
 			
 			toPrint.println();
 			toPrint.println();
@@ -192,17 +240,23 @@ public class Knapsack {
 		
 	}
 	
-	//gathers the nums to be printed from the list generated of the values that add up
+	/**
+	 * gathers the nums to be printed from the list generated of the values that add up
+	 * @param list the list of used values corresponding with a certain file
+	 * @return string representation of all the used values
+	 */
 	public static String printNums(List<Integer> list)
 	{
-		StringBuffer nums = new StringBuffer();
+		List<Integer> listUpdated = new ArrayList<Integer>();
 		
 		for(Integer x: list)
-		{
 			if(x != 0)
-				nums.append(x + ", ");
-		}
+				listUpdated.add(x);
+			
+		String temp = listUpdated.toString();
+		String updated = temp.substring(1);
+		String updated2 = updated.substring(0, updated.length() - 1);
 		
-		return nums.toString();
+		return updated2;
 	}
 }

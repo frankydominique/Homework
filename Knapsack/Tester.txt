@@ -1,3 +1,6 @@
 yellow.txt
 red.txt
 purple.txt
+green.txt
+pink.txt
+blue.txt
