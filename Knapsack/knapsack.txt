@@ -1,1 +1,73 @@
 
+yellow.txt	40	3, 2, 7, 5, 5
+3 pound melon 
+2 pound melon 
+7 pound melon 
+5 pound melon 
+5 pound melon 
+
+
+red.txt	255	100, 30, 8, 2, 43, 66
+100 pound melon 
+30 pound melon 
+8 pound melon 
+2 pound melon 
+43 pound melon 
+66 pound melon 
+
+
+purple.txt	39	5, 34
+5 pound melon 
+34 pound melon 
+
+
+green.txt	0	
+
+
+pink.txt	98	
+
+
+blue.txt	75	8, 8, 6, 5, 13
+8 pound melon 
+8 pound melon 
+6 pound melon 
+5 pound melon 
+13 pound melon 
+
+
+yellow.txt	40	3, 2, 7, 5, 5
+3 pound melon 
+2 pound melon 
+7 pound melon 
+5 pound melon 
+5 pound melon 
+
+
+red.txt	255	100, 30, 8, 2, 43, 66
+100 pound melon 
+30 pound melon 
+8 pound melon 
+2 pound melon 
+43 pound melon 
+66 pound melon 
+
+
+purple.txt	39	5, 34
+5 pound melon 
+34 pound melon 
+
+
+green.txt	0	
+
+
+pink.txt	98	
+
+
+blue.txt	75	8, 8, 6, 5, 13
+8 pound melon 
+8 pound melon 
+6 pound melon 
+5 pound melon 
+13 pound melon 
+
+
