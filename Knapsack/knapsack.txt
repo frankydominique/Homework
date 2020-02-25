@@ -1,1 +1,59 @@
 
+knapsackTesting.txt	-1	
+
+
+knapsackTest01.txt	250	4, 13, 12, 190, 9, 8
+4 pound melon 
+13 pound melon 
+12 pound melon 
+190 pound melon 
+9 pound melon 
+8 pound melon 
+
+
+knapsackTest02.txt	6	4
+4 pound melon 
+
+
+knapsackTest03.txt	31	5, 2, 3, 9, 12
+5 pound melon 
+2 pound melon 
+3 pound melon 
+9 pound melon 
+12 pound melon 
+
+
+knapsackTest04.txt	31	12, 9, 3, 2, 5
+12 pound melon 
+9 pound melon 
+3 pound melon 
+2 pound melon 
+5 pound melon 
+
+
+knapsackTest05.txt	25	12, 2, 6, 5
+12 pound melon 
+2 pound melon 
+6 pound melon 
+5 pound melon 
+
+
+knapsackTest06.txt	50	48, 2
+48 pound melon 
+2 pound melon 
+
+
+knapsackTest07.txt	-1	
+
+
+knapsackTest08.txt	10	
+
+
+knapsackTest09.txt	5	5
+5 pound melon 
+
+
+knapsackTest10.txt	5	5
+5 pound melon 
+
+
