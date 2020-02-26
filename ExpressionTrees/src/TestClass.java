@@ -21,7 +21,6 @@ public class TestClass {
 		
 		enterExpressions();
 		
-		
 		for(String x: expressions)
 			test(x);
 	}
@@ -126,11 +125,12 @@ public class TestClass {
 		PrintWriter toPrint = new PrintWriter(append2);
 		
 		ExpressionTree test = (ExpressionTree)ExpressionTree.buildTree(expression);
-		toPrint.println(test.postfixEval(expression));
+		
 		toPrint.println(test.evalTree());
 		toPrint.println(test.toPrefixNotation());
-		toPrint.println(test.toPostfixNotation());
 		toPrint.println(test.toInfixNotation());
+		toPrint.println(test.toPostfixNotation());
+		toPrint.println(test.postfixEval(expression));
 			
 		toPrint.println();
 		toPrint.println();
