@@ -73,7 +73,9 @@ public class Knapsack {
 		else if(w[n] > limit)
 		{
 			List<Integer> temp = new ArrayList<Integer>();
-			return knapsackSum(w, n - 1, limit, temp);
+			int x = knapsackSum(w, n - 1, limit, temp);
+			list.addAll(temp);
+			return x;
 		}
 		else
 		{
@@ -151,7 +153,7 @@ public class Knapsack {
 		}
 		catch (IOException ex)
 		{
-			System.out.println("Not a valid File");
+			System.out.println("Not a valid File: " + file.getName());
 		}
 		return -1;
 	}
@@ -163,6 +165,7 @@ public class Knapsack {
 	 */
 	public static int[] readValues(File file)
 	{
+		//System.out.println(file.getName());
 		int[] temp;
 		try
 		{
@@ -181,9 +184,12 @@ public class Knapsack {
 			if(reader.hasNextLine())
 				reader.nextLine();
 			
+			int x;
 			while(reader.hasNextLine() && reader.hasNextInt())
 			{
-				temp[pos] = reader.nextInt();;
+				x = reader.nextInt();
+				//System.out.println(x);
+				temp[pos] = x;
 				pos++;
 			}
 			
@@ -229,8 +235,10 @@ public class Knapsack {
 			toPrint.println();
 			
 			for(Integer x: usedValues)
+			{
 				if(x != 0)
 					toPrint.print(x + " pound melon \n");
+			}
 			
 			toPrint.println();
 			toPrint.println();

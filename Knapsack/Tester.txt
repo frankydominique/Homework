@@ -1,6 +1,6 @@
-yellow.txt
-red.txt
-purple.txt
+blue.txt
 green.txt
 pink.txt
-blue.txt
+purple.txt
+red.txt
+yellow.txt
