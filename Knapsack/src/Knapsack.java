@@ -22,9 +22,16 @@ public class Knapsack {
 		//puts in the test file
 		
 		Scanner input = new Scanner(System.in);
-		System.out.println("Please enter file name: ");
-		String path = input.nextLine();
-		File test = new File(path);
+		File test;
+		if(args.length > 0)
+			test = new File(args[0]);
+		else {
+			System.out.println("Please enter file name: ");
+			String path = input.nextLine();
+			test = new File(path);
+		}
+		
+		
 		
 		//reads the test file and divides the test file into the smaller files to be used
 		readBigFile(test);
