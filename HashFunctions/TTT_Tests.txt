@@ -1,0 +1,75 @@
+    xxooo
+    ooxxx
+       o 
+       ox
+       oo
+      x  
+      x x
+      x o
+      xx 
+      xxx
+      xxo
+      xo 
+      xox
+      xoo
+      o  
+      o x
+      o o
+      ox 
+      oxx
+oxx ox xo
+oxx ox ox
+oxx ox oo
+oxx oxx o
+oxx oxo x
+oxx oxo o
+o   o  ox
+o   o  oo
+o   o x  
+o   o x x
+o   o x o
+o   o xx 
+o   o xxx
+o   o xxo
+xxxoooxxx
+ooooxxoox
+ooooxxooo
+ooooxo   
+ooooxo  x
+ooooxo  o
+ooooxo x 
+ooooxo xx
+ooooxo xo
+ooooxo o 
+ooooxo ox
+ooooxo oo
+ooooxox  
+ooooxox x
+ooooxox o
+ooooxoxx 
+ooooxoxxx
+ooooxoxxo
+ooooxoxo 
+ooooxoxox
+ooooxoxoo
+o oxxx   
+o oxxx xo
+o oxxx ox
+o oxxx oo
+o oxxxx o
+o oxxxxo 
+o oxxxo x
+xoxoxoxoo
+xoxoxooxx
+xoxoxooox
+xoxoo  ox
+xoxoo xo 
+xoxoox  x
+xoxoox o 
+xoxooxxoo
+xoxooxoxx
+xoxooo  x
+xoxooo x 
+xoxooox  
+xoxoooxxo
+xoxooooxx

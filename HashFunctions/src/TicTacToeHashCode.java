@@ -103,11 +103,32 @@ public class TicTacToeHashCode extends Board {
       
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
-		 while (true) {
+		int numTests = 0; //addition
+		 while (numTests < 10) { //previously set to true
 		   board.displayRandomString();
-		   Thread.sleep(10000);
+		   Thread.sleep(4000);
+		   numTests++; //addition
 		 }
 		
+		 System.out.println("Displaying Franky's tests: ");
+		 
+		 try
+		 {
+			 Scanner scanner = new Scanner(new File("TTT_Tests.txt"));
+			 String line;
+			 
+			 while(scanner.hasNextLine())
+			 {
+				 line = scanner.nextLine();
+				 board.show(line);
+				 board.setHashCodeLabel(board.myHashCode());
+				 board.setWinnerLabel(board.isWin());
+				 Thread.sleep(4000);
+			 }
+		 } catch (FileNotFoundException e)
+		 {
+			 System.out.println("File not found");
+		 }
 	}
 
 }
