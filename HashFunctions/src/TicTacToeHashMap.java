@@ -3,24 +3,49 @@
  *
  */
 import java.lang.reflect.Field;
+import java.util.*;
+import java.io.*;
 
 public class TicTacToeHashMap  {
 
 // TODO Define a hash map to store the winning strings as Key and true as Value
+	HashMap<String, Boolean> hashMap = new HashMap<String, Boolean>();
 
    TicTacToeHashMap() {
    // TODO Instantiate/fill your HashMap ... pay attention to initial capacity and load values
-   
+	  try {
+		int cap = this.capacity();
+		if(cap > 0)
+		{
+			Scanner input = new Scanner(new File("Winners.txt"));
+			String line;
+			
+			while(input.hasNextLine())
+			{
+				line = input.nextLine();
+				hashMap.put(line, true);
+			}
+		}
+	} catch (NoSuchFieldException e) {
+		// TODO Auto-generated catch block
+		System.out.println("Field doesn't exist");
+	} catch (IllegalAccessException e) {
+		// TODO Auto-generated catch block
+		System.out.println("No access permitted");
+	} catch (FileNotFoundException e) {
+		System.out.println("Invalid file");
+	}
    }
 
 // TODO This method uses reflect to investigate the objects inside the HashMap
 // You should be able to update this with your information and determine 
 // Information about capacity (different than size()) and what is stored in the cells
 
+   //capacity is how much space is left
    private int capacity() throws NoSuchFieldException, IllegalAccessException {
-      Field tableField = HashMap.class.getDeclaredField("table");
-      tableField.setAccessible(true);
-      Object[] table = (Object[]) tableField.get(##YOUR HASH MAP HERE ##);
+      Field tableField = HashMap.class.getDeclaredField("hashMap"); //this gets the field table, i replaced table with hashmap, was i supposed to do so?
+      tableField.setAccessible(true); //this makes the field table accessible
+      Object[] table = (Object[]) tableField.get(hashMap);
       return table == null ? 0 : table.length;   
    }
    
