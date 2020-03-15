@@ -9,75 +9,68 @@ import java.util.Scanner;
 public class TTT_HC extends Board{
 
 	boolean[] winners;
-	int numCollisions = 0;
-	int numNoCollisions = 1400;
-	int winnersIndex = 0;
+	int numNoCollisions = 0;
+	int initialCollisions = 0;
+	int secondaryCollisions = 0;
+	int multCollisions = 0;
 	
 	public TTT_HC(String s)
 	{
 		super(s);
-		winners = new boolean[1400];
+		winners = new boolean[2003];
 		addWinners();
 	}
 	
 	public int tttHashCode()
 	{
-		int rowTotal  = 0;
-		int rowNum = 1;
-		int[] totals = new int[3];
+		int index = 0;
 		
 		for(int r = 0; r < 3; r++)
 		{
 			for(int c = 0; c < 3; c++)
 			{
 				char current = charAt(r, c);
-				if('x' == current) rowTotal+= 2;
-				else if('o' == current) rowTotal += 1;
+				index = (r + 3) * (c + 3) * (int)(current) % 2003;
 			}
-			totals[r] = rowTotal * rowNum;
-			rowTotal = 0;
-			rowNum++;
+			
 		}
 		
-		int index = totals[0] + totals[1] + totals[2];
-		
+		System.out.println(index);
 		return index;
 	}
 	
-	public int tttHashCodeCollisions()
+	//where index is where it has collided
+	public int tttHashCodeCollisions(int index)
 	{
+		initialCollisions++;
 		
-		numCollisions++;
-		
-		int rowTotal  = 0;
-		int[] totals = new int[3];
-		
-		for(int r = 0; r < 3; r++)
+		int numCol = 0;
+		for(int i = index + 1; i < winners.length; i++)
 		{
-			for(int c = 0; c < 3; c++)
+			numCol++;
+			if(!winners[i])
 			{
-				char current = charAt(r, c);
-				if('x' == current) rowTotal+= 2;
-				else if('o' == current) rowTotal += 1;
+				winners[i] = true;
+				sortCollisionCount(numCol);
+				return i;
 			}
-			totals[r] = rowTotal;
-			rowTotal = 0;
+			System.out.println(i + " is taken");
 		}
 		
-		int index = 0;
-		if(numCollisions % 11 == 0)
-			index =  2 * totals[0] + totals[1] + 3 * totals[2];
-		else if (numCollisions % 3 == 0)
-			index =  3 * totals[0] + 2 * totals[1] + totals[2];
-		else if(numCollisions % 2 == 0)
-			index =  totals[0] + 3 * totals[1] + 2 * totals[2];
-		else
+		for(int i = 0; i < index; i++)
 		{
-			winnersIndex++;
-			return winnersIndex - 1;
+			numCol++;
+			if(!winners[i])
+			{
+				winners[i] = true;
+				sortCollisionCount(numCol);
+				return i;
+			}
+			System.out.println(i + " is taken");
 		}
 		
 		return index;
+		
 	}
 	
 	public void addWinners()
@@ -94,24 +87,27 @@ public class TTT_HC extends Board{
 				
 				setBoardString(line);
 				int index = tttHashCode();
-				System.out.println(index);
 				
-				if(winners[index] != true)
-					numNoCollisions--;
-				
-				while(winners[index] == true)
+				if(winners[index] == true)
 				{
-					index = tttHashCodeCollisions();
-				}
+					index = tttHashCodeCollisions(tttHashCode());
+				} else
+					numNoCollisions++;
 				
-				System.out.println(index + " is taken");
+				
 				winners[index] = true;	
 			}
-			
+			scanner.close();
 		} catch (FileNotFoundException e)
 		{
 			System.out.println("Cannot find file");
 		}
+	}
+	
+	public void sortCollisionCount(int numCol)
+	{
+		if(numCol == 2) secondaryCollisions++;
+		else if(numCol > 2) multCollisions++;
 	}
 	
 	int myHashCode()
@@ -126,9 +122,6 @@ public class TTT_HC extends Board{
 
 	boolean isWin()
 	{
-		if(tttHashCode() > 1399)
-			return false;
-		
 		return winners[tttHashCode()];
 	}
 	
@@ -136,8 +129,10 @@ public class TTT_HC extends Board{
 	{
 		TTT_HC board = new TTT_HC("TicTacToe");
 		
-		System.out.println("Collisions: " + board.numCollisions);
 		System.out.println("No Collisions: " + board.numNoCollisions);
+		System.out.println("Initial Collisions: " + board.initialCollisions);
+		System.out.println("Secondary Collisions: " + board.secondaryCollisions);
+		System.out.println("Multiple Collisions: " + board.multCollisions);
 		
 	}
 	

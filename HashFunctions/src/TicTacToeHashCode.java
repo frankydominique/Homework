@@ -61,6 +61,47 @@ public class TicTacToeHashCode extends Board {
 		return objIndex;
 	}
 
+	public int myHashCode(String s) {
+	      // TODO write your hashcode function
+			
+			char current;
+			int[] digits = new int[9];
+			int pos = 0;
+			
+			for(int row = 0; row < 3; row++)
+			{
+				for(int col = 0; col < 3; col++)
+				{
+					current = charAt(s, row, col);
+					if(' ' == current)
+					{
+						digits[pos] = 0;
+						pos++;
+					}
+					else if('x' == current) 
+					{
+						digits[pos] = 1;
+						pos++;
+					} else
+					{
+						digits[pos] = 2;
+						pos++;
+					}
+				}
+			}
+			
+			int objIndex = 0;
+			int pow = 0;
+			
+			for(int x: digits)
+			{
+				objIndex += x * ((int)Math.pow(3, pow));
+				pow++;
+			}
+			
+			return objIndex;
+		}
+	
 	//i added this method
 	public void addWinners()
 	{
@@ -87,16 +128,16 @@ public class TicTacToeHashCode extends Board {
 	public boolean isWin(String s) {
       // TODO write an isWin method that takes in a String.  This should not change the board.  Board has an additional charAt 
       // TODO method to facilitate this
+		int index = myHashCode(s);
 		
-		
-		return true;
+		return winners[index];
       }
       
 	@Override
-	//complete
 	public boolean isWin() {
       // TODO write an isWin method that uses boardString
-		//String s = getBoardString();
+		TicTacToeHashCode t = new TicTacToeHashCode(getBoardString());
+		t.myHashCode();
 		
 		return winners[myHashCode()];
       }
