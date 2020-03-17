@@ -74,7 +74,7 @@ public class TicTacToeHashMap {
 	   loadFactorField.setAccessible(true);
 	   
 	   
-	   loadFactor = loadFactorField.getFloat(hashMap);
+	   loadFactor = (float)size / capacity();
 	   String formatLF = String.format("%.2f", loadFactor);
 	   
 	   return "Size: " + size + ", Load Factor: " + formatLF;
