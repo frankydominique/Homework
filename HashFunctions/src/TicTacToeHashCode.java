@@ -5,12 +5,19 @@
 import java.util.*;
 import java.io.*;
 
-//TODO Make sure you remove all of the TODO comments from this file before turning it in
-
 public class TicTacToeHashCode extends Board {
 
+	/**
+	 * Field
+	 * winners - boolean array containing whether a board is a win or using
+	 * 	the board's hashCode() as the index
+	 */
 	boolean[] winners; // True if the hash string that maps to this index is a winner, false otherwise
 
+	/**
+	 * Constructor, constructs a TicTacToeHashCode object
+	 * @param s - the name of the TicTacToe Board
+	 */
 	TicTacToeHashCode(String s) {
 		super(s);
       //TODO Instantiate winners array
@@ -19,9 +26,12 @@ public class TicTacToeHashCode extends Board {
 	}
 
 	@Override
-	//complete
+	/**
+	 * myHashCode - traverses through the elements on the board and generates an index for winners[]
+	 * 	index for winners[] is made by multiplying the char's value by 3^(whatever index of the string)
+	 * 	' ' is zero, x is 1, and o is two
+	 */
 	public int myHashCode() {
-      // TODO write your hashcode function
 		
 		char current;
 		int[] digits = new int[9];
@@ -61,9 +71,12 @@ public class TicTacToeHashCode extends Board {
 		return objIndex;
 	}
 
+	/**
+	 * another version of the hashCode above that takes in a string instead
+	 * @param s the tictactoe string
+	 * @return the index of the given tictactoe string for winners using the above function
+	 */
 	public int myHashCode(String s) {
-	      // TODO write your hashcode function
-			
 			char current;
 			int[] digits = new int[9];
 			int pos = 0;
@@ -102,7 +115,9 @@ public class TicTacToeHashCode extends Board {
 			return objIndex;
 		}
 	
-	//i added this method
+	/**
+	 * hashes the strings in Winners.txt to winners[] array and sets those indeces to true
+	 */
 	public void addWinners()
 	{
 		try
@@ -125,17 +140,20 @@ public class TicTacToeHashCode extends Board {
 	}
 	
 	@Override
+	/**
+	 * determines if the given string is a win or not
+	 */
 	public boolean isWin(String s) {
-      // TODO write an isWin method that takes in a String.  This should not change the board.  Board has an additional charAt 
-      // TODO method to facilitate this
 		int index = myHashCode(s);
 		
 		return winners[index];
       }
       
 	@Override
+	/**
+	 * determines if this TicTacToeHashCode board is a win or not
+	 */
 	public boolean isWin() {
-      // TODO write an isWin method that uses boardString
 		TicTacToeHashCode t = new TicTacToeHashCode(getBoardString());
 		t.myHashCode();
 		

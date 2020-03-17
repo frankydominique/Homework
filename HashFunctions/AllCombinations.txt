@@ -132,7 +132,7 @@
     xxoxo false
     xxoo  false
     xxoox false
-    xxooo false
+    xxooo true
     xo    false
     xo  x false
     xo  o false
