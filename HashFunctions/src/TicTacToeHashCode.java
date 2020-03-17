@@ -129,8 +129,8 @@ public class TicTacToeHashCode extends Board {
 			{
 				line = scanner.nextLine();
 				
-				setBoardString(line);
-				winners[myHashCode()] = true;
+				int hash = myHashCode(line);
+				winners[hash] = true;
 			}
 		} catch (FileNotFoundException e)
 		{
