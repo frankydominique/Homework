@@ -1,19 +1,26 @@
+/**
+ * this class simulates my priority queue and java's priority queue
+ */
 import java.util.*;
 
 public class Simulation {
 
 	public static void main(String[] args)
 	{
-		//testMyPriorityQueue();
+		testMyPriorityQueue();
 		
 		System.out.println("testing the real Priority Queue...");
 		
 		testPriorityQueue();
 	}
 	
+	/**
+	 * makes a priority queue of mine and makes 50 messages to add to the queue
+	 * prints out the messages that have been processed
+	 */
 	public static void testMyPriorityQueue()
 	{
-		MessagePriorityQueue mpq = new MessagePriorityQueue(new MessageComparator());
+		MessagePriorityQueue mpq = new MessagePriorityQueue();
 		Message[] removed = new Message[50];
 		int pos = 0;
 		
@@ -41,6 +48,9 @@ public class Simulation {
 			System.out.println("average wait time: " + times);
 	}
 	
+	/**
+	 * this method uses java's priority queue and takes in 50 messages
+	 */
 	public static void testPriorityQueue()
 	{
 		PriorityQueue<Message> pq = new PriorityQueue<Message>(5, new MessageComparator());
