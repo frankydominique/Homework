@@ -21,7 +21,7 @@ public class Simulation {
 	public static void testMyPriorityQueue()
 	{
 		MessagePriorityQueue mpq = new MessagePriorityQueue();
-		Message[] removed = new Message[50];
+		Message[] removed = new Message[100];
 		int pos = 0;
 		
 		//change count to greater than 30
@@ -40,9 +40,7 @@ public class Simulation {
 				}
 			}
 		}
-				
-		for(Message msg: removed)
-			System.out.println(msg);
+		
 		
 		for(double times: mpq.getAverageWaitingTimes())
 			System.out.println("average wait time: " + times);
@@ -54,7 +52,9 @@ public class Simulation {
 	public static void testPriorityQueue()
 	{
 		PriorityQueue<Message> pq = new PriorityQueue<Message>(5, new MessageComparator());
-		Message[] removed = new Message[50];
+		Message[] removed = new Message[100];
+		int[] waitingTimes = new int[5];
+		int[] waitingTimesLength = new int[5];
 		int pos = 0;
 		
 		for(int i = 0; i < removed.length; i++)
@@ -76,6 +76,8 @@ public class Simulation {
 					index++;
 				}
 				removed[pos] = msg;
+				waitingTimes[msg.getPriority()] += i - msg.getArrivalTime();
+				waitingTimesLength[msg.getPriority()]++;
 				for(Message x: temp)
 				{
 					if(x != null) pq.add(x);
@@ -86,7 +88,15 @@ public class Simulation {
 			
 		}
 		
-		for(Message msg: removed)
-			System.out.println(msg);
+		/*for(int i = 4; i < removed.length; i++)
+		{
+			removed[i - 4] = pq.remove();
+			waitingTimes[removed[i - 4].getPriority()] += i - removed[i - 4].getArrivalTime();
+			waitingTimesLength[removed[i - 4].getPriority()]++;
+		}*/
+		
+		for(int i = 0; i < waitingTimes.length; i++)
+			System.out.println("average waiting time: " + (waitingTimes[i] / waitingTimesLength[i]));
+		
 	}
 }
