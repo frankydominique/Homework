@@ -4,15 +4,25 @@
  */
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class ChessSquarePanel extends JPanel{
 	
+	/**
+	 * fields
+	 */
 	Color background;
 	boolean flag;
+	static ChessSquarePanel[][] panels = new ChessSquarePanel[8][8];
 	
+	/**
+	 * constructors
+	 * @param background color for this panel
+	 * @param flag whether there is to be a queen or not
+	 */
 	public ChessSquarePanel(Color background, boolean flag)
 	{
 		super();
@@ -20,6 +30,9 @@ public class ChessSquarePanel extends JPanel{
 		this.flag = flag;
 	}
 	
+	/**
+	 * sets up this component
+	 */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -28,6 +41,15 @@ public class ChessSquarePanel extends JPanel{
 		this.setBackground(background);
 		g.setColor(Color.RED);
 		if(flag) g.drawString("Q", w/2, h/2);
+	}
+	
+	/**
+	 * changes flag to a new value
+	 * @param newFlag the new value for the flag
+	 */
+	public void updateFlag(boolean newFlag)
+	{
+		flag = newFlag;
 	}
 	
 	public static void main(String[] args)
@@ -47,12 +69,21 @@ public class ChessSquarePanel extends JPanel{
 				else value = false;
 				
 				if((i + j) % 2 == 0)
-					window.add(new ChessSquarePanel(Color.BLACK, value));
+				{
+					ChessSquarePanel panel = new ChessSquarePanel(Color.WHITE, value);
+					panels[i][j] = panel;
+					window.add(panel);
+				}
 				else
-					window.add(new ChessSquarePanel(Color.WHITE, value));
+				{
+					ChessSquarePanel panel = new ChessSquarePanel(Color.BLACK, value);
+					panels[i][j] = panel;
+					window.add(panel);
+					//window.add(new ChessSquarePanel(Color.WHITE, value));
+				}
 			}
 		}
 		window.setVisible(true);
 	}
-	
+
 }
