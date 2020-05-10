@@ -22,7 +22,7 @@ public class RecipeFrame extends JFrame{
 	{
 		super("Recipe Book");
 		setUpOpeningScreen();
-		this.setPreferredSize(new Dimension(300, 400));
+		this.setPreferredSize(new Dimension(1200, 800));
 		this.add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
@@ -35,17 +35,37 @@ public class RecipeFrame extends JFrame{
 	//	with the ingredients
 	//	include a back button to go back to the main menu
 	//idea: each recipe should have this method and return the jpanel, make it static
-	private JPanel makeRecipePage()
+	//implements the recipe interface, gonna have to make instances
+	public JPanel makeRecipePage(Recipe recipe)
 	{
+		//PancakeRecipe recipe = new PancakeRecipe();
 		JPanel recipePage = new JPanel();
 		GridLayout gridLayout = new GridLayout(0, 2);
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new GridLayout(2, 0));
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		
 		JButton returnButton = new JButton("Return to main menu");
 		JButton changeServingSize = new JButton("Change Serving Size");
-		JButton changeUnits = new JButton("Change units");
+		String[] options = {"Imperial", "Metric"};
+		JComboBox changeUnits = new JComboBox(options);
+		JTextArea ingredients = new JTextArea();
+		JTextArea instructions = new JTextArea();
+		JScrollPane ingredientsScroll = new JScrollPane(ingredients, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane instructionsScroll = new JScrollPane(instructions, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		Font font = new Font("Times Italic", Font.ITALIC, 22);
+		ingredients.setFont(font);
+		instructions.setFont(font);
+		instructions.setSize(rightPanel.getWidth(), rightPanel.getHeight() - changeUnits.getHeight());
+		instructions.setLineWrap(true);
+		instructions.setWrapStyleWord(true);
+		
+		ingredients.setText(recipe.getIngredients());
+		instructions.setText(recipe.getInstructions());
+		ingredients.setEditable(false);
+		instructions.setEditable(false);
 		
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
@@ -53,8 +73,24 @@ public class RecipeFrame extends JFrame{
 				cardLayout.show(container, "Main Menu");
 			}
 		});
+		changeUnits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				recipe.convertUnits();
+				ingredients.setText(recipe.getIngredients());
+			}
+		});
+		changeServingSize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				//joptionpane
+			}
+		});
 		leftPanel.add(returnButton);
+		leftPanel.add(ingredientsScroll);
 		leftPanel.add(changeServingSize);
+		
+		rightPanel.add(instructionsScroll);
 		rightPanel.add(changeUnits);
 		
 		recipePage.setLayout(gridLayout);
@@ -73,9 +109,9 @@ public class RecipeFrame extends JFrame{
 		container.setLayout(cardLayout);
 		
 		mainMenu = makeMainMenu();
-		recipePage1 = makeRecipePage();
-		recipePage2 = makeRecipePage();
-		recipePage3 = makeRecipePage();
+		recipePage1 = makeRecipePage(new PancakeRecipe());
+		recipePage2 = makeRecipePage(new ChocolateChipCookieRecipe());
+		recipePage3 = makeRecipePage(new EggsRecipe());
 		container.add(mainMenu, "Main Menu");
 		container.add(recipePage1, "Recipe 1");
 		container.add(recipePage2, "Recipe 2");
@@ -87,9 +123,13 @@ public class RecipeFrame extends JFrame{
 	private JPanel makeMainMenu()
 	{
 		JPanel menu = new JPanel();
-		GridLayout gridLayout = new GridLayout(3, 0);
+		GridLayout gridLayout = new GridLayout(4, 0);
 		menu.setLayout(gridLayout);
 		
+		JTextArea title = new JTextArea("Recipe Book");
+		Font font = new Font("Serif Italic", Font.ITALIC, 48);
+		title.setFont(font);
+		title.setEditable(false);
 		JButton recipe1 = new JButton("Pancake Recipe");
 		JButton recipe2 = new JButton("Choco Cookie Recipe");
 		JButton recipe3 = new JButton("Eggs");
@@ -115,6 +155,7 @@ public class RecipeFrame extends JFrame{
 			}
 		});
 		
+		menu.add(title);
 		menu.add(recipe1);
 		menu.add(recipe2);
 		menu.add(recipe3);

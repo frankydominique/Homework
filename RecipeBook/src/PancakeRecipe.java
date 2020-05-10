@@ -1,3 +1,9 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
 /**
  * 
  */
@@ -11,36 +17,26 @@ public class PancakeRecipe implements Recipe{
 	/*
 	 * Fields
 	 */
-	private double flourAP;
-	private double confectionerSugar;
-	private double bakingPowder;
-	private double kosherSalt;
-	private double milk;
-	private double butter;
-	private double vanillaExtract;
-	private int egg;
-	private double creamOfTartar;
-	private int servingSize;
+	private double flourAP = 1.5; //c
+	private double confectionerSugar = 3;
+	private double bakingPowder = 2;
+	private double kosherSalt = 0.5;
+	private double milk = 1.25; 
+	private  double butter = 4; //c
+	private  double vanillaExtract = 0.5;
+	private  int egg = 4;
+	private  double creamOfTartar = 0.25;
 	
-	private int ORIGINAL_SERVING_SIZE = 8;
-	private boolean imperial;
+	private  int ORIGINAL_SERVING_SIZE = 8;
+	private  int servingSize = ORIGINAL_SERVING_SIZE;
+	private  boolean imperial = true;
 	
 	public PancakeRecipe()
 	{
-		flourAP = 1.5; //c
-		confectionerSugar = 3;
-		bakingPowder = 2;
-		kosherSalt = 0.5;
-		milk = 1.25; 
-		butter = 4; //c
-		vanillaExtract = 0.5;
-		egg = 4;
-		creamOfTartar = 0.25;
-		servingSize = ORIGINAL_SERVING_SIZE;
-		imperial = true;
+		
 	}
 	
-	public boolean changeServingSize(int x)
+	public  boolean changeServingSize(int x)
 	{
 		flourAP = changeOneIngredientSize(flourAP, x);
 		confectionerSugar = changeOneIngredientSize(confectionerSugar, x);
@@ -54,12 +50,12 @@ public class PancakeRecipe implements Recipe{
 		return true;
 	}
 	
-	public double changeOneIngredientSize(double ingredient, int newAmt)
+	public  double changeOneIngredientSize(double ingredient, int newAmt)
 	{
 		return ingredient / ORIGINAL_SERVING_SIZE * newAmt;
 	}
 	
-	public boolean convertUnits()
+	public  boolean convertUnits()
 	{
 		if(imperial)
 		{
@@ -74,7 +70,7 @@ public class PancakeRecipe implements Recipe{
 		return true;
 	}
 	
-	public String getInstructions()
+	public  String getInstructions()
 	{
 		String step1 = "-Whisk together flour, confecitoners' sugar, baking powder and salt in large bowl";
 		String step2 = "-Whisk together milk, melted butter, vanilla, and one egg yolk until combined";
@@ -89,7 +85,7 @@ public class PancakeRecipe implements Recipe{
 		return step1 + "\n" + step2 + "\n" + step3 + "\n" + step4 + "\n" + step5 + "\n" + step6; 
 	}
 	
-	public String getIngredients()
+	public  String getIngredients()
 	{
 		return flourAP + " cups AP Flour, \n" +
 				confectionerSugar + " tablespoons confectioner sugar, \n" +
@@ -102,176 +98,20 @@ public class PancakeRecipe implements Recipe{
 				creamOfTartar + " teaspoons cream of tartar";
 	}
 	
-	/**
-	 * @return the flourAP
-	 */
-	public double getFlourAP() {
-		return flourAP;
-	}
+	
 
-
-
-	/**
-	 * @param flourAP the flourAP to set
-	 */
-	public void setFlourAP(double flourAP) {
-		this.flourAP = flourAP;
-	}
-
-
-
-	/**
-	 * @return the confectionerSugar
-	 */
-	public double getConfectionerSugar() {
-		return confectionerSugar;
-	}
-
-
-
-	/**
-	 * @param confectionerSugar the confectionerSugar to set
-	 */
-	public void setConfectionerSugar(double confectionerSugar) {
-		this.confectionerSugar = confectionerSugar;
-	}
-
-
-
-	/**
-	 * @return the bakingPowder
-	 */
-	public double getBakingPowder() {
-		return bakingPowder;
-	}
-
-
-
-	/**
-	 * @param bakingPowder the bakingPowder to set
-	 */
-	public void setBakingPowder(double bakingPowder) {
-		this.bakingPowder = bakingPowder;
-	}
-
-
-
-	/**
-	 * @return the kosherSalt
-	 */
-	public double getKosherSalt() {
-		return kosherSalt;
-	}
-
-
-
-	/**
-	 * @param kosherSalt the kosherSalt to set
-	 */
-	public void setKosherSalt(double kosherSalt) {
-		this.kosherSalt = kosherSalt;
-	}
-
-
-
-	/**
-	 * @return the milk
-	 */
-	public double getMilk() {
-		return milk;
-	}
-
-
-
-	/**
-	 * @param milk the milk to set
-	 */
-	public void setMilk(double milk) {
-		this.milk = milk;
-	}
-
-
-
-	/**
-	 * @return the butter
-	 */
-	public double getButter() {
-		return butter;
-	}
-
-
-
-	/**
-	 * @param butter the butter to set
-	 */
-	public void setButter(double butter) {
-		this.butter = butter;
-	}
-
-
-
-	/**
-	 * @return the vanillaExtract
-	 */
-	public double getVanillaExtract() {
-		return vanillaExtract;
-	}
-
-
-
-	/**
-	 * @param vanillaExtract the vanillaExtract to set
-	 */
-	public void setVanillaExtract(double vanillaExtract) {
-		this.vanillaExtract = vanillaExtract;
-	}
-
-
-
-	/**
-	 * @return the egg
-	 */
-	public int getEgg() {
-		return egg;
-	}
-
-
-
-	/**
-	 * @param egg the egg to set
-	 */
-	public void setEgg(int egg) {
-		this.egg = egg;
-	}
-
-
-
-	/**
-	 * @return the creamOfTartar
-	 */
-	public double getCreamOfTartar() {
-		return creamOfTartar;
-	}
-
-
-
-	/**
-	 * @param creamOfTartar the creamOfTartar to set
-	 */
-	public void setCreamOfTartar(double creamOfTartar) {
-		this.creamOfTartar = creamOfTartar;
-	}
-
-	public int getServingSize()
+	public  int getServingSize()
 	{
 		return servingSize;
 	}
 	
-	public void setServingSize(int x)
+	public  void setServingSize(int x)
 	{
-		this.servingSize = x;
+		servingSize = x;
 	}
 
+	
+	
 	public String toString()
 	{
 		return "Pancake Recipe: " + "Ingredients: \n" + getIngredients() + "\n Instructions: \n " + getInstructions(); 
