@@ -83,7 +83,13 @@ public class RecipeFrame extends JFrame{
 		changeServingSize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
 			{
-				//joptionpane
+				try {
+				String servingSizeInput = JOptionPane.showInputDialog(this, "Wanted serving size: ");
+				recipe.changeServingSize(Integer.valueOf(servingSizeInput));
+				ingredients.setText(recipe.getIngredients());
+				} catch (NumberFormatException x){
+					
+				}
 			}
 		});
 		leftPanel.add(returnButton);
@@ -161,6 +167,11 @@ public class RecipeFrame extends JFrame{
 		menu.add(recipe3);
 		
 		return menu;
+	}
+	
+	public String toString()
+	{
+		return "Recipe";
 	}
 	
 	//TODO extra: try to do a search on the main menu that pulls up recipes that have an ingredient

@@ -47,24 +47,27 @@ public class PancakeRecipe implements Recipe{
 		vanillaExtract = changeOneIngredientSize(vanillaExtract, x);
 		egg = (int)(egg * 1.0 / ORIGINAL_SERVING_SIZE * x);
 		creamOfTartar = changeOneIngredientSize(creamOfTartar, x);
+		servingSize = x;
 		return true;
 	}
 	
 	public  double changeOneIngredientSize(double ingredient, int newAmt)
 	{
-		return ingredient / ORIGINAL_SERVING_SIZE * newAmt;
+		return ingredient / servingSize * newAmt;
 	}
 	
 	public  boolean convertUnits()
 	{
 		if(imperial)
 		{
-			flourAP = flourAP * 4.41 * 28.35;
-			butter = butter / 16 * 8 * 28.35;
+			flourAP = Math.floor((flourAP * 4.41 * 28.35) * 100) / 100;
+			butter = Math.floor((butter / 16 * 8 * 28.35) * 100) / 100;
+			imperial = false;
 		} else
 		{
-			flourAP = flourAP / 28.35 / 4.41;
-			butter = butter / 28.35 / 8 * 16;
+			flourAP = Math.round((flourAP / 28.35 / 4.41) * 100.00) / 100.00;
+			butter = Math.floor((butter / 28.35 / 8 * 16) * 100) / 100;
+			imperial = true;
 		}
 		
 		return true;
@@ -87,7 +90,8 @@ public class PancakeRecipe implements Recipe{
 	
 	public  String getIngredients()
 	{
-		return flourAP + " cups AP Flour, \n" +
+		if(imperial)
+			return flourAP + " cups AP Flour, \n" +
 				confectionerSugar + " tablespoons confectioner sugar, \n" +
 				bakingPowder + " teaspoons baking powder, \n" +
 				kosherSalt + " teaspoons kosher salt, \n" +
@@ -96,6 +100,16 @@ public class PancakeRecipe implements Recipe{
 				vanillaExtract + " teaspoon vanilla extract, \n" +
 				egg + " eggs, \n" +
 				creamOfTartar + " teaspoons cream of tartar";
+		else
+			return flourAP + " grams AP Flour, \n" +
+			confectionerSugar + " tablespoons confectioner sugar, \n" +
+			bakingPowder + " teaspoons baking powder, \n" +
+			kosherSalt + " teaspoons kosher salt, \n" +
+			milk + " cups milk, \n" +
+			butter + " grams butter, \n" +
+			vanillaExtract + " teaspoon vanilla extract, \n" +
+			egg + " eggs, \n" +
+			creamOfTartar + " teaspoons cream of tartar";
 	}
 	
 	
