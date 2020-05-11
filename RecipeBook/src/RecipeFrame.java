@@ -15,6 +15,7 @@ public class RecipeFrame extends JFrame{
 	private JPanel recipePage1;
 	private JPanel recipePage2;
 	private JPanel recipePage3;
+	private Color COLOR = new Color(219, 245, 247);
 	private int status = 0; //0 = main menu, 1 = first recipe, 2 = second recipe, etc.
 
 	//TODO make constructor with super, a setFrameOptions method, and set visible
@@ -66,6 +67,8 @@ public class RecipeFrame extends JFrame{
 		instructions.setText(recipe.getInstructions());
 		ingredients.setEditable(false);
 		instructions.setEditable(false);
+		ingredients.setBackground(COLOR);
+		instructions.setBackground(COLOR);
 		
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
@@ -99,6 +102,9 @@ public class RecipeFrame extends JFrame{
 		rightPanel.add(instructionsScroll);
 		rightPanel.add(changeUnits);
 		
+		leftPanel.setBackground(COLOR);
+		rightPanel.setBackground(COLOR);
+		
 		recipePage.setLayout(gridLayout);
 		recipePage.add(leftPanel);
 		recipePage.add(rightPanel);
@@ -130,15 +136,23 @@ public class RecipeFrame extends JFrame{
 	{
 		JPanel menu = new JPanel();
 		GridLayout gridLayout = new GridLayout(4, 0);
+		GridLayout gridLayout2 = new GridLayout(0, 3);
+		JPanel titleScreen = new JPanel();
 		menu.setLayout(gridLayout);
+		titleScreen.setLayout(gridLayout2);
 		
-		JTextArea title = new JTextArea("Recipe Book");
+		JTextArea title = new JTextArea("   Recipe Book");
+		title.setBackground(COLOR);
 		Font font = new Font("Serif Italic", Font.ITALIC, 48);
 		title.setFont(font);
 		title.setEditable(false);
 		JButton recipe1 = new JButton("Pancake Recipe");
 		JButton recipe2 = new JButton("Choco Cookie Recipe");
 		JButton recipe3 = new JButton("Eggs");
+		
+		titleScreen.add(new ImagePanel());
+		titleScreen.add(title);
+		titleScreen.add(new ImagePanel());
 		
 		recipe1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
@@ -161,7 +175,7 @@ public class RecipeFrame extends JFrame{
 			}
 		});
 		
-		menu.add(title);
+		menu.add(titleScreen);
 		menu.add(recipe1);
 		menu.add(recipe2);
 		menu.add(recipe3);
