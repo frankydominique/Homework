@@ -31,11 +31,18 @@ public class PancakeRecipe implements Recipe{
 	private  int servingSize = ORIGINAL_SERVING_SIZE;
 	private  boolean imperial = true;
 	
+	/**
+	 * constructors
+	 */
 	public PancakeRecipe()
 	{
 		
 	}
 	
+	/**
+	 * changes the ingredients to accommodate the serving size
+	 * @return true when this method completes its purpose
+	 */
 	public  boolean changeServingSize(int x)
 	{
 		flourAP = changeOneIngredientSize(flourAP, x);
@@ -51,11 +58,20 @@ public class PancakeRecipe implements Recipe{
 		return true;
 	}
 	
+	/**
+	 * adjust the individual ingredient amount to accommodate the new serving size
+	 * @param ingredient the current amount of the ingredient
+	 * @param newAmt the new serving size
+	 * @return the new amount needed to provide for the new serving size
+	 */
 	public  double changeOneIngredientSize(double ingredient, int newAmt)
 	{
 		return ingredient / servingSize * newAmt;
 	}
 	
+	/**
+	 * converts the units to the different measuring unit, either imperial or metric
+	 */
 	public  boolean convertUnits()
 	{
 		if(imperial)
@@ -73,6 +89,9 @@ public class PancakeRecipe implements Recipe{
 		return true;
 	}
 	
+	/**
+	 * @returns the instructions
+	 */
 	public  String getInstructions()
 	{
 		String step1 = "-Whisk together flour, confecitoners' sugar, baking powder and salt in large bowl";
@@ -88,6 +107,9 @@ public class PancakeRecipe implements Recipe{
 		return step1 + "\n" + step2 + "\n" + step3 + "\n" + step4 + "\n" + step5 + "\n" + step6; 
 	}
 	
+	/**
+	 * @return the ingredients according to whether they need to be imperial or metric
+	 */
 	public  String getIngredients()
 	{
 		if(imperial)
@@ -112,20 +134,18 @@ public class PancakeRecipe implements Recipe{
 			creamOfTartar + " teaspoons cream of tartar";
 	}
 	
-	
-
+	/**
+	 * returns serving size
+	 * @return
+	 */
 	public  int getServingSize()
 	{
 		return servingSize;
 	}
 	
-	public  void setServingSize(int x)
-	{
-		servingSize = x;
-	}
-
-	
-	
+	/**
+	 * returns the string of this recipe class
+	 */
 	public String toString()
 	{
 		return "Pancake Recipe: " + "Ingredients: \n" + getIngredients() + "\n Instructions: \n " + getInstructions(); 

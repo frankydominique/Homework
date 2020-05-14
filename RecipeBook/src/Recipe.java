@@ -1,4 +1,8 @@
-
+/**
+ * interface for the recipe classes
+ * @author Franceska
+ *
+ */
 public interface Recipe {
 	
 	public String getIngredients();

@@ -8,14 +8,23 @@
  */
 public class EggsRecipe implements Recipe{
 
+	/**
+	 * fields
+	 */
 	private int eggs = 1;
 	private int servingSize = 1;
 	
+	/**
+	 * constructors
+	 */
 	public EggsRecipe()
 	{
 		
 	}
 	
+	/**
+	 * changes the serving size
+	 */
 	public boolean changeServingSize(int x)
 	{
 		servingSize = x;
@@ -23,11 +32,17 @@ public class EggsRecipe implements Recipe{
 		return true;
 	}
 	
+	/**
+	 * necessary to implement, unused
+	 */
 	public boolean convertUnits()
 	{
 		return false;
 	}
 	
+	/**
+	 * returns the instructions
+	 */
 	public String getInstructions()
 	{
 		String step1 = "-Crack egg(s) into pan";
@@ -35,6 +50,9 @@ public class EggsRecipe implements Recipe{
 		return step1 + "\n" + step2; 
 	}
 	
+	/**
+	 * returns the ingredients of this recipe
+	 */
 	public String getIngredients()
 	{
 		return eggs + " eggs";

@@ -9,37 +9,39 @@ import java.awt.event.ActionListener;
 
 public class RecipeFrame extends JFrame{
 	
+	/**
+	 * fields
+	 */
 	private CardLayout cardLayout;
 	private JPanel container;
 	private JPanel mainMenu;
 	private JPanel recipePage1;
 	private JPanel recipePage2;
 	private JPanel recipePage3;
+	private JPanel searchPage;
 	private Color COLOR = new Color(219, 245, 247);
-	private int status = 0; //0 = main menu, 1 = first recipe, 2 = second recipe, etc.
 
-	//TODO make constructor with super, a setFrameOptions method, and set visible
+	/**
+	 * constructors
+	 */
 	public RecipeFrame()
 	{
 		super("Recipe Book");
 		setUpOpeningScreen();
-		this.setPreferredSize(new Dimension(1200, 800));
+		this.setPreferredSize(new Dimension(1200, 1200));
 		this.add(container);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 	}
 	
-	//TODO in set frame options make a basic recipe screen with a title
-	//	two buttons for the recipe's units and the recipe's serving size
-	//	and the screen divided up into two different sides, one with the instructions and the other
-	//	with the ingredients
-	//	include a back button to go back to the main menu
-	//idea: each recipe should have this method and return the jpanel, make it static
-	//implements the recipe interface, gonna have to make instances
+	/**
+	 * makes the page outline for the given recipe and enters the appropriate information
+	 * @param recipe - the recipe type
+	 * @return - a panel containing the recipe's information subbed in
+	 */
 	public JPanel makeRecipePage(Recipe recipe)
 	{
-		//PancakeRecipe recipe = new PancakeRecipe();
 		JPanel recipePage = new JPanel();
 		GridLayout gridLayout = new GridLayout(0, 2);
 		JPanel leftPanel = new JPanel();
@@ -112,8 +114,102 @@ public class RecipeFrame extends JFrame{
 		return recipePage;
 	}
 	
-	//TODO make a main menu screen with the list of recipes and that allows you to go back and forth
-	//add some decorations
+	/**
+	 * makes the page where someone can search for an ingredient
+	 * @return a jPanel that allows someone to search for an ingredient
+	 */
+	private JPanel makeSearchPage()
+	{
+		JPanel searchPanel = new JPanel();
+		JPanel leftPanel = new JPanel();
+		JPanel rightPanel = new JPanel();
+		GridLayout layout = new GridLayout(0, 2);
+		GridLayout layout1 = new GridLayout(2, 0);
+		GridLayout layout2 = new GridLayout(3, 0);
+		searchPanel.setLayout(layout);
+		leftPanel.setLayout(layout1);
+		rightPanel.setLayout(layout2);
+		
+		JButton searchButton = new JButton("Search");
+		JButton returnButton = new JButton("Return to main menu");
+		
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				cardLayout.show(container, "Main Menu");
+			}
+		});
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				rightPanel.removeAll();
+				rightPanel.revalidate();
+				rightPanel.repaint();
+				
+				String wantedIngredient = JOptionPane.showInputDialog(this, "Wanted ingredient: ");
+				
+				PancakeRecipe pancakes = new PancakeRecipe();
+				ChocolateChipCookieRecipe chocoCookie = new ChocolateChipCookieRecipe();
+				EggsRecipe eggs = new EggsRecipe();
+				
+				if(wantedIngredient != null)
+				{
+					if(pancakes.getIngredients().indexOf(wantedIngredient) >= 0)
+					{
+						JButton recipe = new JButton("Pancake Recipe");
+						recipe.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent event)
+							{
+								cardLayout.show(container, "Recipe 1");
+							}
+						});
+						rightPanel.add(recipe);
+						rightPanel.revalidate();
+						rightPanel.repaint();
+					}
+					
+					if(chocoCookie.getIngredients().indexOf(wantedIngredient) >= 0)
+					{
+						JButton recipe = new JButton("Chocolate Chip Cookie Recipe");
+						recipe.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent event)
+							{
+								cardLayout.show(container, "Recipe 2");
+							}
+						});
+						rightPanel.add(recipe);
+						rightPanel.revalidate();
+						rightPanel.repaint();
+					}
+					
+					if(eggs.getIngredients().indexOf(wantedIngredient) >= 0)
+					{
+						JButton recipe = new JButton("Eggs Recipe");
+						recipe.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent event)
+							{
+								cardLayout.show(container, "Recipe 3");
+							}
+						});
+						rightPanel.add(recipe);
+						rightPanel.revalidate();
+						rightPanel.repaint();
+					}
+				}
+			}
+		});
+		
+		leftPanel.add(returnButton);
+		leftPanel.add(searchButton);
+		searchPanel.add(leftPanel);
+		searchPanel.add(rightPanel);
+		
+		return searchPanel;
+	}
+	
+	/**
+	 * fills in the opening screen of the recipe book and fills in which recipes then shows the screen
+	 */
 	private void setUpOpeningScreen()
 	{
 		container = new JPanel();
@@ -124,18 +220,24 @@ public class RecipeFrame extends JFrame{
 		recipePage1 = makeRecipePage(new PancakeRecipe());
 		recipePage2 = makeRecipePage(new ChocolateChipCookieRecipe());
 		recipePage3 = makeRecipePage(new EggsRecipe());
+		searchPage = makeSearchPage();
 		container.add(mainMenu, "Main Menu");
 		container.add(recipePage1, "Recipe 1");
 		container.add(recipePage2, "Recipe 2");
 		container.add(recipePage3, "Recipe 3");
+		container.add(searchPage, "Search Page");
 		
 		cardLayout.show(container, "Main Menu");
 	}
 	
+	/**
+	 * makes the main menu page/opening screen with the title and buttons
+	 * @return the JPanel of the opening screen
+	 */
 	private JPanel makeMainMenu()
 	{
 		JPanel menu = new JPanel();
-		GridLayout gridLayout = new GridLayout(4, 0);
+		GridLayout gridLayout = new GridLayout(5, 0);
 		GridLayout gridLayout2 = new GridLayout(0, 3);
 		JPanel titleScreen = new JPanel();
 		menu.setLayout(gridLayout);
@@ -149,6 +251,7 @@ public class RecipeFrame extends JFrame{
 		JButton recipe1 = new JButton("Pancake Recipe");
 		JButton recipe2 = new JButton("Choco Cookie Recipe");
 		JButton recipe3 = new JButton("Eggs");
+		JButton searchBar = new JButton("Search for Ingredients");
 		
 		titleScreen.add(new ImagePanel());
 		titleScreen.add(title);
@@ -175,21 +278,30 @@ public class RecipeFrame extends JFrame{
 			}
 		});
 		
+		searchBar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event)
+			{
+				cardLayout.show(container, "Search Page");
+			}
+		});
+		
 		menu.add(titleScreen);
 		menu.add(recipe1);
 		menu.add(recipe2);
 		menu.add(recipe3);
+		menu.add(searchBar);
 		
 		return menu;
 	}
-	
+
+	/**
+	 * prints the string of this JFrame
+	 */
 	public String toString()
 	{
 		return "Recipe";
 	}
-	
-	//TODO extra: try to do a search on the main menu that pulls up recipes that have an ingredient
-	//	you searched for
+
 	
 	/**
 	 * @param args
