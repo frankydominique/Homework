@@ -6,7 +6,7 @@
  * @author Franceska
  *
  */
-public class ChocolateChipCookieRecipe implements Recipe{
+public class ChocolateChipCookieRecipe {
 
 	/**
 	 * fields

@@ -6,7 +6,7 @@
  * @author Franceska
  *
  */
-public class EggsRecipe implements Recipe{
+public class EggsRecipe {
 
 	/**
 	 * fields

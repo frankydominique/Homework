@@ -12,7 +12,7 @@ import javax.swing.*;
  * @author Franceska
  *
  */
-public class PancakeRecipe implements Recipe{
+public class PancakeRecipe {
 
 	/*
 	 * Fields
