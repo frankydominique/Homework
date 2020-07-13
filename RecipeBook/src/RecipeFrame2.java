@@ -235,7 +235,7 @@ public class RecipeFrame2 extends JFrame{
 		
 		//layouts
 		mainPanel.setLayout(new GridLayout(0, 2));
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+		leftPanel.setLayout(new GridLayout(7, 0));
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		
 		JTextArea ingredients = new JTextArea();
@@ -254,6 +254,7 @@ public class RecipeFrame2 extends JFrame{
 		JButton sizeButton = new JButton("Serving Size");
 		String[] options = {"Imperial", "Metric"};
 		JComboBox unitButton = new JComboBox(options);
+		JButton completeButton = new JButton("Send in Recipe");
 		
 		Recipe newRecipe = new Recipe();
 		
@@ -277,10 +278,16 @@ public class RecipeFrame2 extends JFrame{
 				rightPanel.repaint();
 				
 				String newIngredient = JOptionPane.showInputDialog(this, "What ingredient do you want to add?");
-				String ingredMeasurement = JOptionPane.showInputDialog(this, "How is this measured?");
+				
+				String[] options = {"cups", "tsp", "tbsp", "bag", "oz", "grams", "kilograms"};
+				int x = JOptionPane.showOptionDialog(null, "Returns the position of your choice on the array",
+		                "Click a button",
+		                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+				String choice = options[x];
+				
 				Double ingredValue = Double.parseDouble(JOptionPane.showInputDialog(this, "How much of this ingredient? (Double)"));
 			
-				newRecipe.addIngredient(newIngredient, ingredValue, ingredMeasurement);
+				newRecipe.addIngredient(newIngredient, ingredValue, choice);
 				
 				ingredients.setText(newRecipe.getIngredients());
 			}
@@ -310,6 +317,27 @@ public class RecipeFrame2 extends JFrame{
 					newRecipe.setImperial(false);
 			}
 		});
+		completeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event)
+			{
+				container.add(makeRecipePage(newRecipe), newRecipe.getName());
+				
+				JButton newRecButton = new JButton(newRecipe.getName());
+				
+				newRecButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent event)
+					{
+						cardLayout.show(container, newRecipe.getName());
+						
+					}
+				});
+				
+
+				mainMenu.add(newRecButton);
+				mainMenu.revalidate();
+				mainMenu.repaint();
+			}
+		});
 		
 		rightPanel.add(returnButton);
 		rightPanel.add(ingredients);
@@ -318,6 +346,7 @@ public class RecipeFrame2 extends JFrame{
 		leftPanel.add(instructButton);
 		leftPanel.add(sizeButton);
 		leftPanel.add(unitButton);
+		leftPanel.add(completeButton);
 		
 		mainPanel.add(rightPanel);
 		mainPanel.add(leftPanel);

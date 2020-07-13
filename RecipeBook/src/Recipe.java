@@ -35,6 +35,11 @@ public class Recipe {
 		name = n;
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
+	
 	public String getIngredients()
 	{
 		Set<String> list = ingredients.keySet();
@@ -46,7 +51,8 @@ public class Recipe {
 			String ingred = iter.next();
 			Double val = ingredients.get(ingred);
 			
-			ingreds += val + " " + ingred + "(s) /n";
+			if(ingred.equalsIgnoreCase("eggs")) ingreds += val + " " + ingred + "(s) \n";
+			else ingreds += val + " " + ingredMeasurements.get(ingred) + "(s) " + ingred + "\n";
 		}
 		
 		return ingreds;
