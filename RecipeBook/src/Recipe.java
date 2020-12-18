@@ -68,8 +68,14 @@ public class Recipe {
 	
 	public void addIngredient(String name, Double amt, String measurement)
 	{
-		ingredients.put(name, amt);
-		ingredMeasurements.put(name, measurement);
+		if(measurement.equals("n/a"))
+		{
+			ingredients.put(name, amt);
+			ingredMeasurements.put(name, "");
+		} else {
+			ingredients.put(name, amt);
+			ingredMeasurements.put(name, measurement);
+		}
 	}
 	
 	public String getInstructions()

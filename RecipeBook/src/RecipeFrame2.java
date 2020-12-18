@@ -14,10 +14,12 @@ public class RecipeFrame2 extends JFrame{
 	 */
 	private CardLayout cardLayout;
 	private JPanel container;
-	private JPanel mainMenu;
+	private MainMenuPage mainMenu;
 	//Need recipe pages
-	private JPanel searchPage;
-	private JPanel addPage;
+	//PROBLEM: YOU END UP MAKING SEVERAL BUTTONS FOR THE SAME RECIPES INSTEAD OF SENDING IN DIFFERENT 
+	//RECIPES
+	private SearchPage searchPage;
+	private AddPage addPage;
 	private Color COLOR = new Color(219, 245, 247);
 
 	/**
@@ -39,7 +41,7 @@ public class RecipeFrame2 extends JFrame{
 	 * @param recipe - the recipe type
 	 * @return - a panel containing the recipe's information subbed in
 	 */
-	public JPanel makeRecipePage(Recipe recipe)
+	/*public JPanel makeRecipePage(Recipe recipe)
 	{
 		JPanel recipePage = new JPanel();
 		GridLayout gridLayout = new GridLayout(0, 2);
@@ -111,13 +113,13 @@ public class RecipeFrame2 extends JFrame{
 		recipePage.add(rightPanel);
 		
 		return recipePage;
-	}
+	}*/
 	
 	/**
 	 * makes the page where someone can search for an ingredient
 	 * @return a jPanel that allows someone to search for an ingredient
 	 */
-	private JPanel makeSearchPage()
+	/*private JPanel makeSearchPage()
 	{
 		JPanel searchPanel = new JPanel();
 		JPanel leftPanel = new JPanel();
@@ -204,7 +206,7 @@ public class RecipeFrame2 extends JFrame{
 		searchPanel.add(rightPanel);
 		
 		return searchPanel;
-	}
+	}*/
 	
 	/**
 	 * fills in the opening screen of the recipe book and fills in which recipes then shows the screen
@@ -215,9 +217,9 @@ public class RecipeFrame2 extends JFrame{
 		cardLayout = new CardLayout();
 		container.setLayout(cardLayout);
 		
-		mainMenu = makeMainMenu();
-		searchPage = makeSearchPage();
-		addPage = makeAddPage();
+		mainMenu = new MainMenuPage(cardLayout, container);//makeMainMenu();
+		searchPage = new SearchPage(cardLayout, container); //makeSearchPage();
+		addPage = new AddPage(cardLayout, container, mainMenu); //makeAddPage();
 		
 		container.add(mainMenu, "Main Menu");
 		container.add(searchPage, "Search Page");
@@ -227,7 +229,7 @@ public class RecipeFrame2 extends JFrame{
 	}
 	
 	private JPanel makeAddPage()
-	{
+	{/*
 		//panels
 		JPanel mainPanel = new JPanel();
 		JPanel rightPanel = new JPanel();
@@ -246,6 +248,8 @@ public class RecipeFrame2 extends JFrame{
 		ingredients.setEditable(false);
 		ingredients.setBackground(COLOR);
 		
+		Recipe newRecipe = new Recipe();
+		
 		//buttons
 		JButton returnButton = new JButton("Return to main menu");
 		JButton nameButton = new JButton("Name");
@@ -255,8 +259,6 @@ public class RecipeFrame2 extends JFrame{
 		String[] options = {"Imperial", "Metric"};
 		JComboBox unitButton = new JComboBox(options);
 		JButton completeButton = new JButton("Send in Recipe");
-		
-		Recipe newRecipe = new Recipe();
 		
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
@@ -279,7 +281,7 @@ public class RecipeFrame2 extends JFrame{
 				
 				String newIngredient = JOptionPane.showInputDialog(this, "What ingredient do you want to add?");
 				
-				String[] options = {"cups", "tsp", "tbsp", "bag", "oz", "grams", "kilograms"};
+				String[] options = {"cups", "tsp", "tbsp", "bag", "oz", "grams", "kilograms", "n/a"};
 				int x = JOptionPane.showOptionDialog(null, "Returns the position of your choice on the array",
 		                "Click a button",
 		                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
@@ -320,7 +322,7 @@ public class RecipeFrame2 extends JFrame{
 		completeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event)
 			{
-				container.add(makeRecipePage(newRecipe), newRecipe.getName());
+				container.add(new RecipePage(newRecipe, cardLayout, container), newRecipe.getName());
 				
 				JButton newRecButton = new JButton(newRecipe.getName());
 				
@@ -331,7 +333,6 @@ public class RecipeFrame2 extends JFrame{
 						
 					}
 				});
-				
 
 				mainMenu.add(newRecButton);
 				mainMenu.revalidate();
@@ -351,7 +352,8 @@ public class RecipeFrame2 extends JFrame{
 		mainPanel.add(rightPanel);
 		mainPanel.add(leftPanel);
 		
-		return mainPanel;
+		return mainPanel;*/
+		return null;
 	}
 	
 	/**
@@ -360,7 +362,7 @@ public class RecipeFrame2 extends JFrame{
 	 */
 	private JPanel makeMainMenu()
 	{
-		JPanel menu = new JPanel();
+		/*JPanel menu = new JPanel();
 		GridLayout gridLayout = new GridLayout(5, 0);
 		GridLayout gridLayout2 = new GridLayout(0, 3);
 		JPanel titleScreen = new JPanel();
@@ -399,9 +401,10 @@ public class RecipeFrame2 extends JFrame{
 		menu.add(addBar);
 		menu.add(searchBar);
 		
-		return menu;
+		return menu;*/
+		return null;
 	}
-
+	
 	/**
 	 * prints the string of this JFrame
 	 */

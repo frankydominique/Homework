@@ -217,9 +217,9 @@ public class RecipeFrame extends JFrame{
 		container.setLayout(cardLayout);
 		
 		mainMenu = makeMainMenu();
-		recipePage1 = makeRecipePage(new PancakeRecipe());
-		recipePage2 = makeRecipePage(new ChocolateChipCookieRecipe());
-		recipePage3 = makeRecipePage(new EggsRecipe());
+		//recipePage1 = makeRecipePage(new PancakeRecipe());
+		//recipePage2 = makeRecipePage(new ChocolateChipCookieRecipe());
+		//recipePage3 = makeRecipePage(new EggsRecipe());
 		searchPage = makeSearchPage();
 		container.add(mainMenu, "Main Menu");
 		container.add(recipePage1, "Recipe 1");
